@@ -1,1 +1,1 @@
-console.log("ujin");
+console.log("태수 안녕");
