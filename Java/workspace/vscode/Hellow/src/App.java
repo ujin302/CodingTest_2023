@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        // 백준 2525 오븐시계
+        System.out.println("백준 2525 오븐시계");
         // Scanner sc = new Scanner(System.in);
         // int h = sc.nextInt();
         // int m = sc.nextInt();
@@ -18,7 +18,7 @@ public class App {
         // }
         // System.out.println(h + " " + m);
 
-        // 백준 2480 주사위 세개
+        System.out.println("백준 2480 주사위 세개");
         // 같은 눈 3개 > 10000 + a *1000
         // 같은 눈 2개 > 1000 + a *100
         // 모두 다른 눈 > 가장 큰거 * 100
@@ -57,5 +57,20 @@ public class App {
         // result = 1000 + num * 100;
         // }
         // System.out.println(result);
+
+        System.out.println("백준 10950 A+B-3");
+        // Scanner sc = new Scanner(System.in);
+        // int index = sc.nextInt();
+        // int[][] ArrNum = new int[index][2];
+
+        // for (int i = 0; i < index; i++) {
+        // for (int j = 0; j < 2; j++) {
+        // ArrNum[i][j] = sc.nextInt();
+        // }
+        // }
+
+        // for (int i = 0; i < index; i++) {
+        // System.out.println(ArrNum[i][0] + ArrNum[i][1]);
+        // }
     }
 }

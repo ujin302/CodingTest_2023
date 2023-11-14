@@ -1,19 +1,23 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int index = sc.nextInt();
-        int[][] ArrNum = new int[index][2];
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        // BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        for (int i = 0; i < index; i++) {
-            for (int j = 0; j < 2; j++) {
-                ArrNum[i][j] = sc.nextInt();
+        int n = Integer.parseInt(br.readLine()); // 영수증의 총 금액
+        int[][] arrnum = new int[n][2];
+        String result = "";
+
+        for (int i = 0; i < n; i++) {
+            for (int k = 0; k < 2; k++) {
+                arrnum[i][k] = Integer.parseInt(br.readLine());
             }
+            result += (arrnum[i][0] + arrnum[i][1] + "\n");
         }
 
-        for (int i = 0; i < index; i++) {
-            System.out.println(ArrNum[i][0] + ArrNum[i][1]);
-        }
+        System.out.println(result.trim());
     }
 }
