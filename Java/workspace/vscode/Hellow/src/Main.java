@@ -8,19 +8,20 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        String str = br.readLine(); // 숫자 개수 와 비교숫자
+        int n = Integer.parseInt(str.split(" ")[0]);
+        int num = Integer.parseInt(str.split(" ")[1]);
 
-        while (true) {
-            String str = br.readLine();
-            int a = Integer.parseInt(str.split(" ")[0]);
-            int b = Integer.parseInt(str.split(" ")[1]);
-            if (a == 0 & b == 0) {
-                break;
-            } else {
-                int sum = a + b;
-                bw.write(sum + "\n");
+        int[] arrnum = new int[n];
+        String numberStr = br.readLine();
+
+        for (int i = 0; i < n; i++) {
+            arrnum[i] = Integer.parseInt(numberStr.split(" ")[i]);
+            if (num > arrnum[i]) {
+                bw.write(arrnum[i] + " ");
             }
-
         }
+
         bw.flush();
         bw.close();
     }
