@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.Scanner;
 
 public class App {
@@ -71,6 +76,91 @@ public class App {
 
         // for (int i = 0; i < index; i++) {
         // System.out.println(ArrNum[i][0] + ArrNum[i][1]);
+        // }
+
+        System.out.println("백준 15552 빠른 A+B ");
+        // import java.io.BufferedReader;
+        // import java.io.BufferedWriter;
+        // import java.io.IOException;
+        // import java.io.InputStreamReader;
+        // import java.io.OutputStreamWriter;
+        // import java.util.StringTokenizer;
+
+        // public class Main {
+        // public static void main(String[] args) throws IOException {
+        // BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        // BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        // int n = Integer.parseInt(br.readLine()); // 영수증의 총 금액
+        // String st;
+
+        // for (int i = 0; i < n; i++) {
+        // st = br.readLine();
+        // int sum = 0;
+        // int a = Integer.parseInt(st.split(" ")[0]);
+        // int b = Integer.parseInt(st.split(" ")[1]);
+
+        // bw.write(a + b + "\n"); // 버퍼에 작성
+        // }
+
+        // bw.flush(); // 출력
+        // bw.close();
+        // }
+        // }
+        System.out.println("백준 2439 별 찍기 - 2");
+        // import java.io.BufferedReader;
+        // import java.io.BufferedWriter;
+        // import java.io.IOException;
+        // import java.io.InputStreamReader;
+        // import java.io.OutputStreamWriter;
+
+        // public class Main {
+        // public static void main(String[] args) throws IOException {
+        // BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        // BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        // int n = Integer.parseInt(br.readLine()); // 영수증의 총 금액
+
+        // for (int i = 0; i < n; i++) {
+        // String st = "";
+        // for (int k = 0; k < n - i - 1; k++) {
+        // st += " ";
+        // }
+        // for (int t = 0; t < i + 1; t++) {
+        // st += "*";
+        // }
+        // bw.write(st + "\n"); // 버퍼에 작성
+        // }
+
+        // bw.flush(); // 출력
+        // bw.close();
+        // }
+        // }
+        System.out.println("백준 10951 A+B-4");
+        // import java.io.BufferedReader;
+        // import java.io.BufferedWriter;
+        // import java.io.IOException;
+        // import java.io.InputStreamReader;
+        // import java.io.OutputStreamWriter;
+
+        // public class Main {
+        // public static void main(String[] args) throws IOException {
+        // BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        // BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        // while (true) {
+        // String str = br.readLine();
+        // int a = Integer.parseInt(str.split(" ")[0]);
+        // int b = Integer.parseInt(str.split(" ")[1]);
+        // if (a == 0 & b == 0) {
+        // break;
+        // } else {
+        // int sum = a + b;
+        // bw.write(sum + "\n");
+        // }
+
+        // }
+        // bw.flush();
+        // bw.close();
+        // }
         // }
     }
 }

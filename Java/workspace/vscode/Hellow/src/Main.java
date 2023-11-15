@@ -1,23 +1,27 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        // BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        int n = Integer.parseInt(br.readLine()); // 영수증의 총 금액
-        int[][] arrnum = new int[n][2];
-        String result = "";
-
-        for (int i = 0; i < n; i++) {
-            for (int k = 0; k < 2; k++) {
-                arrnum[i][k] = Integer.parseInt(br.readLine());
+        while (true) {
+            String str = br.readLine();
+            int a = Integer.parseInt(str.split(" ")[0]);
+            int b = Integer.parseInt(str.split(" ")[1]);
+            if (a == 0 & b == 0) {
+                break;
+            } else {
+                int sum = a + b;
+                bw.write(sum + "\n");
             }
-            result += (arrnum[i][0] + arrnum[i][1] + "\n");
-        }
 
-        System.out.println(result.trim());
+        }
+        bw.flush();
+        bw.close();
     }
 }
