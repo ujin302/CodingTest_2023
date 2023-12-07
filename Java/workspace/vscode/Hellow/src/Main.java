@@ -1,28 +1,37 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        String str = br.readLine(); // 숫자 개수 와 비교숫자
-        int n = Integer.parseInt(str.split(" ")[0]);
-        int num = Integer.parseInt(str.split(" ")[1]);
+    public static void main(String[] args) {
+        // n == 바구니 개수
+        // m == 시도 횟수
 
-        int[] arrnum = new int[n];
-        String numberStr = br.readLine();
+        Scanner sc = new Scanner(System.in);
+        String nm = sc.nextLine(); // 바구니 최대 번호, 시도 횟수
 
-        for (int i = 0; i < n; i++) {
-            arrnum[i] = Integer.parseInt(numberStr.split(" ")[i]);
-            if (num > arrnum[i]) {
-                bw.write(arrnum[i] + " ");
-            }
+        int[] baskeNum = new int[Integer.parseInt(nm.split(" ")[0])];
+        String output = "";
+
+        // 바구니 안의 공 번호 세팅
+        for (int i = 0; i < Integer.parseInt(nm.split(" ")[0]); i++) {
+            baskeNum[i] = i + 1;
         }
 
-        bw.flush();
-        bw.close();
+        // 바구니 안의 공 교환
+        for (int i = 0; i < Integer.parseInt(nm.split(" ")[1]); i++) {
+            String inputChange = sc.nextLine(); // 교환 번호
+            int start = Integer.parseInt(inputChange.split(" ")[0]); // 교환 시작
+            int end = Integer.parseInt(inputChange.split(" ")[1]); // 교환 종료
+            int temp = 0;
+
+            temp = baskeNum[start - 1];
+            baskeNum[start - 1] = baskeNum[end - 1];
+            baskeNum[end - 1] = temp;
+        }
+
+        for (int i = 0; i < baskeNum.length; i++) {
+            output += baskeNum[i] + " ";
+        }
+
+        System.out.println(output);
     }
 }

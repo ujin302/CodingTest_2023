@@ -3,7 +3,9 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class App {
     public static void main(String[] args) {
@@ -185,6 +187,70 @@ public class App {
         // }
 
         // System.out.println(result);
+        // }
+        // }
+        System.out.println("백준 10871 X보다 작은 수");
+        // 시간 초과 해결책 > StringTokenizer
+        // import java.io.BufferedReader;
+        // import java.io.BufferedWriter;
+        // import java.io.IOException;
+        // import java.io.InputStreamReader;
+        // import java.io.OutputStreamWriter;
+        // import java.util.StringTokenizer;
+
+        // public class Main {
+        // public static void main(String[] args) throws IOException {
+        // BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        // BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        // StringTokenizer st = new StringTokenizer(br.readLine()); // 숫자 개수 와 비교숫자
+        // int n = Integer.parseInt(st.nextToken()); // nextToken() : 공백문자를 기준으로 Split()
+        // int num = Integer.parseInt(st.nextToken());
+
+        // int[] arrnum = new int[n];
+        // String numberStr = br.readLine();
+
+        // for (int i = 0; i < n; i++) {
+        // arrnum[i] = Integer.parseInt(numberStr.split(" ")[i]);
+        // if (num > arrnum[i]) {
+        // bw.write(arrnum[i] + " ");
+        // }
+        // }
+
+        // bw.flush();
+        // bw.close();
+        // }
+        // }
+
+        System.out.println("벡준 10818 최소, 최대");
+        // import java.io.BufferedReader;
+        // import java.io.BufferedWriter;
+        // import java.io.IOException;
+        // import java.io.InputStreamReader;
+        // import java.io.OutputStreamWriter;
+        // import java.util.Arrays;
+        // import java.util.StringTokenizer;
+
+        // public class Main {
+        // public static void main(String[] args) throws IOException {
+        // BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        // BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        // // 입력받을 숫자 개수
+        // StringTokenizer count = new StringTokenizer(br.readLine());
+        // int n = Integer.parseInt(count.nextToken());
+
+        // // n개 숫자 배열
+        // int[] arrnum = new int[n];
+        // StringTokenizer numberStr = new StringTokenizer(br.readLine(), " ");
+        // // String numberStr = br.readLine();
+
+        // for (int i = 0; i < n; i++) {
+        // arrnum[i] = Integer.parseInt(numberStr.nextToken());
+        // }
+        // Arrays.sort(arrnum); // 오름차순
+        // bw.write(arrnum[0] + " " + arrnum[n - 1]);
+        // bw.flush();
+        // bw.close();
         // }
         // }
     }
