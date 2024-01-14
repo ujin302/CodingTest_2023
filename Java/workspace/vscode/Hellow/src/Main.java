@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class Main {
     public static int[] solution(String[] name, int[] yearning, String[][] photo) {
+        System.out.println("추억의 문제");
         int[] answer = {};
         answer = new int[photo.length];
         // name 사진 속 인물
