@@ -1,7 +1,13 @@
 import java.util.HashMap;
 
 public class programmersLeve1 {
-    public static int[] solution(String[] name, int[] yearning, String[][] photo) {
+    public int solution(String[] friends, String[] gifts) {
+        System.out.println("가장 많이 받은 선물");
+        int answer = 0;
+        return answer;
+    }
+
+    public static int[] solution2(String[] name, int[] yearning, String[][] photo) {
         System.out.println("추억의 문제");
         int[] answer = {};
         answer = new int[photo.length];
@@ -28,7 +34,7 @@ public class programmersLeve1 {
 
     // 배열을 이중 For문을 사용하여 구현하였으나 시간초과로 실패
     // Map를 사용하여 For문 한번 사용 & 하나씩 확인하는 것이 아닌 필요한 값을 키를 활용하여 가져오기 때문에 시간 단축
-    public static String[] solutionMap(String[] players, String[] callings) {
+    public static String[] solution1(String[] players, String[] callings) {
         System.out.println("달리기 경주");
         HashMap<String, Integer> mappedByPlayer = new HashMap<>();
         // 초기화
