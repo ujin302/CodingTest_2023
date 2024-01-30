@@ -1,9 +1,51 @@
 import java.util.HashMap;
 
 public class programmersLeve1 {
-    public int solution(String[] friends, String[] gifts) {
+    public static int solution(String[] friends, String[] gifts) {
         System.out.println("가장 많이 받은 선물");
         int answer = 0;
+        int[][] giftGrap = new int[friends.length][friends.length];
+        // 선물 주고 받은 기록 저장
+        int[][] friendInfo = new int[friends.length][4];
+        // 0 : 준 선물 1 : 받은 선물 3 : 선물 지수 4 : 다음달 받을 선물
+        HashMap<String, Integer> map = new HashMap<>();
+        // 친구와 해당 Index 저장
+
+        for (int i = 0; i < friends.length; i++) {
+            map.put(friends[i], i);
+        }
+
+        for (String temp : gifts) {
+            String gift1 = temp.split(" ")[0]; // 선물 준 사람
+            String gift2 = temp.split(" ")[1]; // 선물 받은 사람
+
+            // 2차원 배열 설정
+            giftGrap[map.get(gift1)][map.get(gift2)]++;
+        }
+
+        // for (int i = 0; i < friends.length; i++) {
+        // friendInfo[i][0] = 0;
+        // friendInfo[i][1] = 0;
+        // for (int t = 0; t < gifts.length; t++) {
+        // String gift1 = gifts[t].split(" ")[0]; // 선물 준 사람
+        // String gift2 = gifts[t].split(" ")[1]; // 선물 받은 사람
+        // // 선물 준 개수 설정
+        // if (friends[i].equals(gift1)) {
+        // friendInfo[i][0]++;
+        // }
+
+        // // 선물 받은 개수 설정
+        // if (friends[i].equals(gift2)) {
+        // friendInfo[i][1]++;
+        // }
+        // }
+        // }
+
+        // // 선물 지수 설정
+        // for (int i = 0; i < friends.length; i++) {
+        // friendInfo[i][2] = friendInfo[i][0] - friendInfo[i][1];
+        // }
+
         return answer;
     }
 
@@ -58,6 +100,13 @@ public class programmersLeve1 {
     }
 
     public static void main(String[] args) {
+        // String[] friends = { "a", "b", "c" };
+        // String[] gifts = { "a b", "b a", "c a", "a c", "a c", "c a" };
 
+        String[] friends = { "joy", "brad", "alessandro", "conan", "david" };
+        String[] gifts = { "alessandro brad", "alessandro joy", "alessandro conan",
+                "david alessandro", "alessandro david" };
+
+        solution(friends, gifts);
     }
 }
