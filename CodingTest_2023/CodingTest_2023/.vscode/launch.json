@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "programmersLeve2",
+            "request": "launch",
+            "mainClass": "programmersLeve2",
+            "projectName": "CodingTest_2023_bcec5970"
+        },
+        {
+            "type": "java",
             "name": "programmersLeve1",
             "request": "launch",
             "mainClass": "programmersLeve1",
