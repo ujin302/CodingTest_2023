@@ -47,6 +47,6 @@ public class programmersLeve2 {
     }
 
     public static void main(String[] args) {
-
+        System.out.println("Lv.2");
     }
 }

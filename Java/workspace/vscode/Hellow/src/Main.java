@@ -6,11 +6,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Main {
-    public static String[] solutionMap(String[] players, String[] callings) {
-        return players;
-    }
-
     public static void main(String[] args) {
-
+        System.out.println("hi!");
     }
 }

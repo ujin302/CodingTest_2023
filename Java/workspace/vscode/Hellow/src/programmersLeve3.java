@@ -2,17 +2,37 @@ import java.util.PriorityQueue;
 import java.util.Collections;
 
 public class programmersLeve3 {
-    public long solution(int n, int[] works) {
+    public static long solution(int n, int[] works) {
+        System.out.println("야근 지수");
+        // 큰수를 줄이는게 관건인 문제
+
         long answer = 0;
+        // 1. 우선순위 큐 선언 -> 항상 내림차순으로 정렬할 수 있도록 하기위해 사용
         PriorityQueue<Integer> workQueue = new PriorityQueue<>(Collections.reverseOrder());
         for (int i = 0; i < works.length; i++) {
             workQueue.offer(works[i]);
         }
 
+        // 2. n시간동안 일처리하기. 가장 큰 일(최댓값)에 대해 -1
+        // 2-1. 최댓값0이거나 그보다 작을 경우, 일이 끝났기때문에 0 반환
+        for (int i = 0; i < n; i++) {
+            int num = workQueue.poll();
+            if (num <= 0)
+                break;
+            else
+                workQueue.offer(num - 1);
+        }
+
+        // 3. 남은일 제곱
+        while (!workQueue.isEmpty()) { // 큐가 비어 있을 때까지
+            int work = workQueue.poll();
+            answer += Math.pow(work, 2);
+        }
+
         return answer;
     }
 
-    public int s1(int[][] triangle) {
+    public static int s1(int[][] triangle) {
         System.out.println("정수 삼각형");
 
         int len = triangle.length;
@@ -41,8 +61,8 @@ public class programmersLeve3 {
         return max;
     }
 
-    public void main(String[] args) {
-        int[] work = { 4, 2, 2 };
-        System.out.println(solution(1, work));
+    public static void main(String[] args) {
+        int[] work = { 4, 3, 3 };
+        System.out.println(solution(4, work));
     }
 }

@@ -1,4 +1,5 @@
 import java.util.HashMap;
+
 // test
 public class programmersLeve1 {
     public static int solution(String[] friends, String[] gifts) {
@@ -6,7 +7,7 @@ public class programmersLeve1 {
         int answer = 0;
         int[][] giftGrap = new int[friends.length][friends.length];
         // 선물 주고 받은 기록 저장
-        int[][] friendInfo = new int[friends.length][4];
+        // int[][] friendInfo = new int[friends.length][4];
         // 0 : 준 선물 1 : 받은 선물 3 : 선물 지수 4 : 다음달 받을 선물
         HashMap<String, Integer> map = new HashMap<>();
         // 친구와 해당 Index 저장
