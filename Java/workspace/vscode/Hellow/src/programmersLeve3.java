@@ -1,6 +1,14 @@
+import java.util.PriorityQueue;
+import java.util.Collections;
+
 public class programmersLeve3 {
     public long solution(int n, int[] works) {
         long answer = 0;
+        PriorityQueue<Integer> workQueue = new PriorityQueue<>(Collections.reverseOrder());
+        for (int i = 0; i < works.length; i++) {
+            workQueue.offer(works[i]);
+        }
+
         return answer;
     }
 
