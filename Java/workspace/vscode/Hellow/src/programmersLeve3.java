@@ -1,8 +1,53 @@
 import java.util.PriorityQueue;
 import java.util.Collections;
+import java.util.Arrays;
 
 public class programmersLeve3 {
-    public static long solution(int n, int[] works) {
+    public static int[] s3(int n, int s) {
+        System.out.println("최고의 집합");
+        // * 최고의 집합이 존재하지 않는 경우 -1 반환
+        if (n > s)
+            return new int[] { -1 };
+
+        // 1. 배열, 나머지 값 선언
+        int[] answer = new int[n];
+        int remain = s % n;
+
+        // 2. 배열 초기화 & 나머지 처리
+        for (int i = 0; i < answer.length; i++) {
+            if (remain != 0) {
+                answer[i]++;
+                remain--;
+            }
+            answer[i] += s / n;
+        }
+
+        // 3. 배열 정렬
+        Arrays.sort(answer);
+
+        return answer;
+
+        // if (n > s)
+        // return new int[] { -1 };
+
+        // // 1. int 배열 초기화 -> s/n
+        // int[] answer = new int[n];
+        // for (int i = 0; i < answer.length; i++) {
+        // answer[i] = s / n;
+        // }
+
+        // // 2. 나머지가 있을 경우 +1
+        // for (int i = 0; i < s % n; i++) {
+        // answer[i]++;
+        // }
+
+        // // 3. 정렬
+        // Arrays.sort(answer);
+
+        // return answer;
+    }
+
+    public static long s2(int n, int[] works) {
         System.out.println("야근 지수");
         // 큰수를 줄이는게 관건인 문제
 
@@ -62,7 +107,10 @@ public class programmersLeve3 {
     }
 
     public static void main(String[] args) {
-        int[] work = { 4, 3, 3 };
-        System.out.println(solution(4, work));
+        int[] answer = solution(2, 9);
+        for (int i : answer) {
+            System.out.println(i);
+        }
+
     }
 }
