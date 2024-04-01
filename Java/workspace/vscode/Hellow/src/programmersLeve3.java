@@ -3,6 +3,27 @@ import java.util.Collections;
 import java.util.Arrays;
 
 public class programmersLeve3 {
+    public int s4(int[] A, int[] B) {
+        System.out.println("숫자게임");
+        int answer = 0;
+        Arrays.sort(A);
+        Arrays.sort(B);
+
+        int a = 0;
+        int b = 0;
+        for (int i = 0; i < A.length; i++) {
+            if (A[a] > B[b] || A[a] == B[b]) {
+                b++;
+            } else {
+                b++;
+                a++;
+                answer++;
+            }
+        }
+
+        return answer;
+    }
+
     public static int[] s3(int n, int s) {
         System.out.println("최고의 집합");
         // * 최고의 집합이 존재하지 않는 경우 -1 반환
@@ -107,10 +128,13 @@ public class programmersLeve3 {
     }
 
     public static void main(String[] args) {
-        int[] answer = solution(2, 9);
-        for (int i : answer) {
-            System.out.println(i);
-        }
+        // 객체 생성
+        // static이 없는 함수를 호출할 경우 객체 생성 후 접근
+        programmersLeve3 pro = new programmersLeve3();
+        int[] a = { 5, 1, 3, 7 };
+        int[] b = { 2, 2, 6, 8 };
+        System.out.println(pro.s4(a, b));
+        ;
 
     }
 }
