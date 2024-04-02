@@ -1,5 +1,9 @@
 
 public class App {
+    public int sumNum(int a, int b) {
+        return a + b;
+    }
+
     public static void main(String[] args) {
         System.out.println("백준 2525 오븐시계");
         // Scanner sc = new Scanner(System.in);

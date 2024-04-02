@@ -1,8 +1,87 @@
-import java.util.PriorityQueue;
-import java.util.Collections;
-import java.util.Arrays;
+import java.util.*;
 
 public class programmersLeve3 {
+    public int[] s6(String[] gems) {
+        Map<String, Integer> gemCounter = new HashMap<>();
+        Queue<String> selectedGems = new LinkedList<>();
+        Set<String> gemSet = new HashSet<>(Arrays.asList(gems));
+
+        int start = 0;
+        int end = Integer.MAX_VALUE;
+        int startPoint = 0;
+
+        for (String gem : gems) {
+            gemCounter.put(gem, gemCounter.getOrDefault(gem, 0) + 1);
+            selectedGems.add(gem);
+
+            while (true) {
+                String targetGem = selectedGems.peek();
+
+                if (gemCounter.get(targetGem) <= 1) {
+                    break;
+                }
+
+                selectedGems.poll();
+                start++;
+                gemCounter.put(targetGem, gemCounter.get(targetGem) - 1);
+            }
+
+            if (gemCounter.size() == gemSet.size() && end > selectedGems.size()) {
+                startPoint = start;
+                end = selectedGems.size();
+            }
+        }
+
+        return new int[] { startPoint + 1, startPoint + end };
+    }
+
+    public int[] s5(String[] gems) {
+        System.out.println("보석 쇼핑");
+
+        HashMap<String, Integer> gemsMap = new HashMap<>(); // 어피치가 선택한 보석 종류 별 개수
+        Queue<String> selectedGems = new LinkedList<>(); // 어피치가 선택한 보석 리스트
+        Set<String> gemSet = new HashSet<>(Arrays.asList(gems)); // 보석 종류
+
+        int start = 0;
+        int end = gems.length + 1;
+        int startPoint = 0;
+
+        for (String gem : gems) {
+            // 1. 보석 선택
+            gemsMap.put(gem, gemsMap.getOrDefault(gem, 0) + 1);
+            selectedGems.add(gem); // 보석 선택
+
+            // 2. 어피치가 소유한 보석 개수 설정
+            while (true) {
+                String targetGem = selectedGems.peek();
+
+                // 2-1. 보석 개수 : 1
+                if (gemsMap.get(targetGem) == 1) {
+                    // 무조건 포함하여야 하기에 break
+                    break;
+                }
+
+                // 2-2. 보석 개수 : 2 이상
+                selectedGems.poll();
+                start++;
+                gemsMap.put(targetGem, gemsMap.get(targetGem) - 1);
+            }
+
+            // 3. 모든 종류의 보석을 소유한지 확인
+            // end > selectedGems.size() : 이전에 소유한 개수와 지금 소유한 개수 비교
+            // >> 최소값을 구해야 하기 때문임
+            if (gemsMap.size() == gemSet.size() && end > selectedGems.size()) {
+                // 보석 종류 == 보석 종류
+                startPoint = start;
+                end = selectedGems.size();
+            }
+        }
+        System.out.println("start + 1 : " + (start + 1));
+        System.out.println("start + end : " + (start + end));
+        System.out.println("startPoint : " + startPoint);
+        return new int[] { startPoint + 1, startPoint + end };
+    }
+
     public int s4(int[] A, int[] B) {
         System.out.println("숫자게임");
         int answer = 0;
@@ -131,10 +210,11 @@ public class programmersLeve3 {
         // 객체 생성
         // static이 없는 함수를 호출할 경우 객체 생성 후 접근
         programmersLeve3 pro = new programmersLeve3();
-        int[] a = { 5, 1, 3, 7 };
-        int[] b = { 2, 2, 6, 8 };
-        System.out.println(pro.s4(a, b));
-        ;
-
+        // String[] a = { "ZZZ", "YYY", "NNNN", "YYY", "BBB" };
+        // String[] a = { "DIA", "RUBY", "RUBY", "DIA", "DIA", "EMERALD", "SAPPHIRE",
+        // "DIA" };
+        // String[] a = { "AA", "AB", "AC", "AA", "AC" };
+        String[] a = { "XYZ", "XYZ", "XYZ" };
+        System.out.println(pro.s6(a));
     }
 }
