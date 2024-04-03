@@ -8,6 +8,13 @@
             "type": "java",
             "name": "Student",
             "request": "launch",
+            "mainClass": "Student",
+            "projectName": "Coding_24790f4a"
+        },
+        {
+            "type": "java",
+            "name": "Student",
+            "request": "launch",
             "mainClass": "Constructor.Student",
             "projectName": "Coding_24790f4a"
         },
