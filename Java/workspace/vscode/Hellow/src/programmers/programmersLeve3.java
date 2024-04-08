@@ -1,6 +1,23 @@
 import java.util.*;
 
 public class programmersLeve3 {
+    public long solution(int n, int[] times) {
+        System.out.println("입국심사");
+        long answer = 0;
+        int[][] timeNN = new int[n][n];
+
+        // 1. 오름차순
+        Arrays.sort(times);
+        System.out.println("입국심사");
+
+        // 입국심사 기다리는 수만큼 반복
+        for (int i = 0; i < n - times.length; i++) {
+
+        }
+
+        return answer;
+    }
+
     public int[] s5(String[] gems) {
         System.out.println("보석 쇼핑");
 
@@ -35,7 +52,7 @@ public class programmersLeve3 {
 
             // 3. 보석 리스트 확인
             // 3-1. 모든 보석의 종류를 가지고 있는지
-            // 3-2. 3-1의 조건을 만족하면서 이전에 선택했던 아이템의 개수(size)가 항상 적도록
+            // 3-2. 3-1의 조건을 만족하면서 이전에 선택했던 아이템의 개수(size)가 항상 크거나 같도록
             if (gemCounthMap.size() == gemSet.size() && size > selectedGemsQueue.size()) {
                 result = start;
                 size = selectedGemsQueue.size();
@@ -177,11 +194,10 @@ public class programmersLeve3 {
         programmersLeve3 pro = new programmersLeve3();
         Student st = new Student();
         // String[] a = { "ZZZ", "YYY", "NNNN", "YYY", "BBB" };
-        String[] a = { "DIA", "RUBY", "RUBY", "DIA", "DIA", "EMERALD", "SAPPHIRE",
-                "DIA" };
+        // String[] a = { "DIA", "RUBY", "RUBY", "DIA", "DIA", "EMERALD", "SAPPHIRE",
+        // "DIA" };
         // String[] a = { "AA", "AB", "AC", "AA", "AC" };
         // String[] a = { "XYZ", "XYZ", "XYZ" };
-        System.out.println(pro.s6(a));
-        System.out.println(st.s(a));
+        System.out.println(pro.solution(6, {10,7,11} )));
     }
 }

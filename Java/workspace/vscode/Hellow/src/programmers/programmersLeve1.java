@@ -1,4 +1,4 @@
-import java.util.HashMap;
+import java.util.*;
 
 // test
 public class programmersLeve1 {
