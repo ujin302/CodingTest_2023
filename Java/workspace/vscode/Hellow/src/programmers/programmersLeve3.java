@@ -3,18 +3,45 @@ import java.util.*;
 public class programmersLeve3 {
     public long solution(int n, int[] times) {
         System.out.println("입국심사");
+        // 1. 변수 설정
         long answer = 0;
-        int[][] timeNN = new int[n][n];
+        long start = (long) times[0]; // 최소 시간
+        long end = (long) times[times.length - 1] * (long) n; // 최대 시간
 
-        // 1. 오름차순
-        Arrays.sort(times);
-        System.out.println("입국심사");
+        // 2. 최소시간 구하기
+        while (start <= end) {
+            // 2-1. 중간 시간 구하기
+            long min = (start + end) / 2; // 중간 시간
+            long person = 0; // min 동안 입국심사 완료한 사람
 
-        // 입국심사 기다리는 수만큼 반복
-        for (int i = 0; i < n - times.length; i++) {
+            // 2-2. min 동안 입국심사 완료한 인원 구하기
+            for (int i : times) {
+                person += min / i;
+            }
+
+            // 2-3. 비교 부분 찾기
+            // 심사완료 인원 <= 심사해야할 인원
+            if (person >= n) {
+                // 1) 앞쪽 부분 비교
+                /*
+                 * 모든 인원을 완료함..
+                 * >> min보다 더 적은 시간을 사용해야할 경우가 있는지 확인
+                 * >> start ~ min - 1 부분 확인 필요
+                 */
+
+                answer = min;
+                end = answer - 1;
+            } else {
+                // 2) 뒤쪽 부분 비교
+                /*
+                 * 모든 인원을 완료하지 못함..
+                 * >> min보다 더 많은 시간을 사용해야 함
+                 * >> min + 1 ~ end 부분 확인 필요
+                 */
+                start = min + 1;
+            }
 
         }
-
         return answer;
     }
 
@@ -192,12 +219,7 @@ public class programmersLeve3 {
         // 객체 생성
         // static이 없는 함수를 호출할 경우 객체 생성 후 접근
         programmersLeve3 pro = new programmersLeve3();
-        Student st = new Student();
-        // String[] a = { "ZZZ", "YYY", "NNNN", "YYY", "BBB" };
-        // String[] a = { "DIA", "RUBY", "RUBY", "DIA", "DIA", "EMERALD", "SAPPHIRE",
-        // "DIA" };
-        // String[] a = { "AA", "AB", "AC", "AA", "AC" };
-        // String[] a = { "XYZ", "XYZ", "XYZ" };
-        System.out.println(pro.solution(6, {10,7,11} )));
+        int[] times = { 10, 7 };
+        System.out.println(pro.solution(6, times));
     }
 }
