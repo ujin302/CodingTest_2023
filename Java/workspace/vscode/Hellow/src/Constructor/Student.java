@@ -1,6 +1,36 @@
 import java.util.*;
 
 public class Student {
+    public long solution(int n, int[] times) {
+        // 1. 변수 설정
+        long answer = 0;
+        Arrays.sort(times);
+        long start = (long) times[0]; // 최소시간
+        long end = (long) times[times.length - 1] * n; // 최대시간
+
+        while (start <= end) {
+            long min = (start + end) / 2; // 중간 시간
+            long person = 0; // 검사 완료된 인원
+
+            // min시간동안 검사완료 인원 구하기
+            for (int i : times) {
+                person += min / i;
+            }
+
+            // 큰쪽? 작은쪽? 비교 대상 확인
+            if (person >= n) {
+                // 작은쪽
+                answer = min;
+                // 최소 시간을 구하기에 이 경우에만 min 값 저장
+                end = min - 1;
+            } else {
+                // 큰쪽
+                start = min + 1;
+            }
+        }
+        return answer;
+    }
+
     public int[] s(String[] gems) {
         System.out.println("보석 쇼핑");
 

@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class programmersLeve3 {
-    public long solution(int n, int[] times) {
+    public long s6(int n, int[] times) {
         System.out.println("입국심사");
         // 1. 변수 설정
         long answer = 0;
@@ -22,17 +22,21 @@ public class programmersLeve3 {
             // 2-3. 비교 부분 찾기
             // 심사완료 인원 <= 심사해야할 인원
             if (person >= n) {
-                // 1) 앞쪽 부분 비교
+                // 1) 앞쪽(작은쪽) 부분 비교
                 /*
                  * 모든 인원을 완료함..
                  * >> min보다 더 적은 시간을 사용해야할 경우가 있는지 확인
                  * >> start ~ min - 1 부분 확인 필요
+                 * 
+                 * < 해당 부분에서 min을 저장하는 이유 >
+                 * person == n 과 같은 상황일 때 최소 시간을 구하여야 함.
+                 * 따라서 작은쪽과 비교할 경우에 min의 값을 저장하여 최소 시간 구함
                  */
 
                 answer = min;
                 end = answer - 1;
             } else {
-                // 2) 뒤쪽 부분 비교
+                // 2) 뒤쪽(큰쪽) 부분 비교
                 /*
                  * 모든 인원을 완료하지 못함..
                  * >> min보다 더 많은 시간을 사용해야 함
@@ -219,7 +223,8 @@ public class programmersLeve3 {
         // 객체 생성
         // static이 없는 함수를 호출할 경우 객체 생성 후 접근
         programmersLeve3 pro = new programmersLeve3();
+        Student st = new Student();
         int[] times = { 10, 7 };
-        System.out.println(pro.solution(6, times));
+        System.out.println(st.solution(6, times));
     }
 }
