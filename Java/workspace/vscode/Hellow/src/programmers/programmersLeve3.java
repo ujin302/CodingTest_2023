@@ -1,10 +1,43 @@
 import java.util.*;
 
 public class programmersLeve3 {
+    public int s7(int[][] jobs) {
+        System.out.println("디스크컨트롤러");
+        int jobsindex = 0; // jobs 배열의 인덱스
+        int count = 0; // 수행된 요청 개수
+        int total = 0; // 총 소요시간
+        int end = 0; // 수행되고난 직후의 시간
+        // 1. 오름차순 정렬
+        Arrays.sort(jobs, (o1, o2) -> o1[0] - o2[0]); // 요청 시간 오름차순 (0번째)
+        PriorityQueue<int[]> jobTimeQueue = new PriorityQueue<>((o1, o2) -> o1[1] - o2[1]); // 처리 시간 오름차순 (1번째)
+
+        while (count < jobs.length) { // 모든 요청 작업 수행
+
+            // 2. 현재 작업이 완료되는 시점까지 들어온 모든 요청을 큐에 저장
+            while (jobsindex < jobs.length && jobs[jobsindex][0] <= end) {
+                // 현재 인덱스 < 배열의 크기 && 요청 시간 <= 현재 시간
+                jobTimeQueue.add(jobs[jobsindex++]);
+            }
+
+            // 3. 큐 초기화
+            if (jobTimeQueue.isEmpty()) {
+                end = jobs[jobsindex][0];
+            } else {
+                int[] temp = jobTimeQueue.poll();
+                total += temp[1] + end - temp[0]; // 현재 작업 소요시간 더하기
+                end += temp[1]; // 현재 작업 완료되는 시점 설정
+                count++; // 횟수 +1
+            }
+        }
+
+        return (int) total / jobs.length;
+    }
+
     public long s6(int n, int[] times) {
         System.out.println("입국심사");
         // 1. 변수 설정
         long answer = 0;
+        Arrays.sort(times);
         long start = (long) times[0]; // 최소 시간
         long end = (long) times[times.length - 1] * (long) n; // 최대 시간
 
@@ -225,6 +258,7 @@ public class programmersLeve3 {
         programmersLeve3 pro = new programmersLeve3();
         Student st = new Student();
         int[] times = { 10, 7 };
-        System.out.println(st.solution(6, times));
+        int[][] jobs = { { 0, 3 }, { 1, 9 }, { 2, 6 } };
+        System.out.println(pro.s7(jobs));
     }
 }
