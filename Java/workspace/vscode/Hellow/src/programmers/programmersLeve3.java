@@ -258,7 +258,9 @@ public class programmersLeve3 {
         programmersLeve3 pro = new programmersLeve3();
         Student st = new Student();
         int[] times = { 10, 7 };
-        int[][] jobs = { { 0, 3 }, { 1, 9 }, { 2, 6 } };
+        // int[][] jobs = { { 0, 3 }, { 1, 9 }, { 2, 6 } };
+        int[][] jobs = { { 4, 5 }, { 4, 6 }, { 30, 2 }, { 100, 1 } };
         System.out.println(pro.s7(jobs));
+        System.out.println(st.s7(jobs));
     }
 }
