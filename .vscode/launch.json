@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "S1",
+            "request": "launch",
+            "mainClass": "SWEA.S1",
+            "projectName": "Coding_24790f4a"
+        },
+        {
+            "type": "java",
+            "name": "S1",
+            "request": "launch",
+            "mainClass": "S1",
+            "projectName": "Coding_24790f4a"
+        },
+        {
+            "type": "java",
+            "name": "S1",
+            "request": "launch",
+            "mainClass": "SW.S1",
+            "projectName": "Coding_24790f4a"
+        },
+        {
+            "type": "java",
             "name": "Student",
             "request": "launch",
             "mainClass": "Student",
