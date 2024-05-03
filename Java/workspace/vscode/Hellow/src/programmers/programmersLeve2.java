@@ -44,49 +44,121 @@ public class programmersLeve2 {
         return answer;
     }
 
-    public int s_2(String o1, String o2) {
-        int result = 0;
-        int o1Time = Integer.parseInt(o1.split(":")[0]) * 60 + Integer.parseInt(o1.split(":")[1]);
-        int o2Time = Integer.parseInt(o2.split(":")[0]) * 60 + Integer.parseInt(o2.split(":")[1]);
-        if (o1Time > o2Time)
-            result = 1;
-        else
-            result = -1;
-
-        // String[][] startTIme = {
-        // o1.split(":"),
-        // o2.split(":")
-        // };
-        // // 1. 시 비교
-        // if (Integer.parseInt(startTIme[0][0]) > Integer.parseInt(startTIme[1][0]))
-        // result = 1;
-        // else if (Integer.parseInt(startTIme[0][0]) <
-        // Integer.parseInt(startTIme[1][0]))
-        // result = -1;
-        // else if (Integer.parseInt(startTIme[0][0]) ==
-        // Integer.parseInt(startTIme[1][0])) {
-        // // 2. 분 비교
-        // if (Integer.parseInt(startTIme[0][1]) > Integer.parseInt(startTIme[1][1])) {
-        // result = 1;
-        // } else if (Integer.parseInt(startTIme[0][1]) <
-        // Integer.parseInt(startTIme[1][1])) {
-        // result = -1;
-        // }
-        // }
-        return result;
-    }
-
     public int toSec(String time) {
-        // 시간을 분 단위로 변경
-        String[] timeArr = time.split(":");
-        int h = Integer.parseInt(timeArr[0]) * 60;
-        int m = Integer.parseInt(timeArr[1]);
+        int h = Integer.parseInt(time.split(":")[0]) * 60;
+        int m = Integer.parseInt(time.split(":")[1]);
 
         return h + m;
     }
 
-    public String[] s_2(String[][] plans) {
-        System.out.println("나 혼자 풀이~ 과제 진행하기");
+    public String[] s2_2(String[][] plans) {
+        System.out.println("나 혼자 풀이2~ 과제 진행하기");
+
+        /*
+         * 1. 시간은 분단휘 기준!
+         * 2. 시작 시간대로 오름차순 정렬
+         * 3. 과제 중단되는 경우
+         * >> 현재과제 시작시간 + paly 시간 > 다음과제 시작 시간 && 마지막 과제 아님
+         * 3-1. 과제 중단 O
+         * -> 중단된 과제 stack에 저장 (name, 남은 시간)
+         * -> 다음 과제 시작
+         * -> 현재 시간 = 다음과제 시작 시간
+         * 3-2. 과제 중단 X
+         * -> answer에 저장
+         * -> 다음 과제 시작
+         * 
+         * 4. 다음과제 시작까지 시간이 남은 경우
+         * >> 현재과제 시작시간 + paly 시간 < 다음과제 시작 시간 && 마지막 과제 아님
+         * 다음과제까지 남는 시간 파악
+         * stack에서 과제 하나 가져와서 남는 시간동안 실행
+         * 4-1. 2개 이상의 과제 수행할 상황 판단 필요
+         * -> 과제 하나 끝날때마다 answer 과제에 저장
+         * 4-2. 1개를 완료하지 못했을 경우 stack에 다시 저장
+         * 
+         * 5. 주어진 plan이 끝남 && stack에 중단된 과제 남음
+         * 중단되 과제 순서대로 완료하여 answer에 저장
+         */
+
+        // 1. 변수 설정
+        int len = plans.length; // paln 길이
+        String[] answer = new String[len]; // 완료된 과제
+        Stack<String[]> stopStack = new Stack<>(); // 중단된 과제
+        Arrays.sort(plans, (o1, o2) -> toSec(o1[1]) - toSec(o2[1])); // 오름차순
+
+        // 2. 현재 과제
+        String name = ""; // 현재 과제
+        int startTime = 0; // 현재 과제 시작 시간
+        int playTime = 0; // 현재 과제 수행 시간
+        int index = 0; // 현재 과제 번호
+
+        // 3. 시간 변수
+        int currentTime = 0; // 현재 시간 (현재 과제 끝나는 시간)
+
+        // 4. 다음 과제
+        int nextStart = 0; // 다음 과제 시작 시간
+        int count = 0; // 완료된 과제 개수
+
+        // 5. 과제 진행
+        while (len > index) {
+            // 1. 현재 과제 설정
+            name = plans[index][0];
+            startTime = toSec(plans[index][1]);
+            playTime = Integer.parseInt(plans[index][2]);
+            currentTime = startTime + playTime;
+
+            // 2. 과제 중단 O (3-1)
+            if (index + 1 < len) { // 마지막 과제 아님
+                nextStart = toSec(plans[index + 1][1]); // 다음과제 시작 시간
+                if (currentTime > nextStart) { // 현재과제 시작시간 + paly 시간 > 다음과제 시작 시간
+
+                    // 2-1. 중단된 과제 저장
+                    int remain = playTime - (nextStart - startTime); // 남은 시간
+                    stopStack.push(new String[] { name, remain + "" });
+                    currentTime = nextStart;
+                    // 2-2. 과제 중단으로 인해 다음과제 진행
+                    index++;
+                    continue;
+                }
+            }
+
+            // 3. 과제 중단 X (3-2)
+            answer[count] = name; // 과제 완료
+            count++; // 완료된 과제 개수
+            index++; // 다음 과제 설정
+
+            // 4. 다음 과제까지 남는 시간 (4)
+            while (!stopStack.empty()) { // 중단된 과제 존재
+                String[] stopStrArr = stopStack.pop();
+                int remain_time = Integer.parseInt(stopStrArr[1]); // 중단된 과제 남은 시간
+
+                if (currentTime + remain_time <= nextStart) {
+                    // 중단된 과제 남은 수행시간 <= 다음과제까지 남은 시간
+
+                    // 주어진 시간 동안 완료 (4-1)
+                    answer[count] = stopStrArr[0];
+                    count++;
+                    currentTime += remain_time;
+                } else {
+                    // 다시 중단 (4-2)
+                    stopStrArr[1] = remain_time - (nextStart - currentTime) + "";
+                    stopStack.push(stopStrArr); // 다시 중단됨
+                    break;
+                }
+            }
+        }
+
+        // 주어진 plan이 끝남 && stack에 중단된 과제 남음 (5)
+        while (!stopStack.empty()) { // 중단된 과제 존재
+            String[] stopStrArr = stopStack.pop();
+            answer[count] = stopStrArr[0];
+            count++;
+        }
+
+        return answer;
+    }
+
+    public String[] s2_1(String[][] plans) {
+        System.out.println("나 혼자 풀이1~ 과제 진행하기");
         /*
          * 시간은 분단위로...!!!
          * 1. 시작시간 기준 오름차순 정렬 [i][1]
@@ -255,12 +327,19 @@ public class programmersLeve2 {
     public static void main(String[] args) {
         System.out.println("Lv.2");
         programmersLeve2 p2 = new programmersLeve2();
-        String[][] strArr = { { "korean", "11:40", "30" }, { "english", "12:10", "20"
-        }, { "math", "12:30", "40" } };
+        // String[][] strArr = { { "korean", "11:40", "30" }, { "english", "12:10", "20"
+        // }, { "math", "12:30", "40" } };
         // String[][] strArr = { { "science", "12:40", "50" }, { "music", "12:20", "40"
         // }, { "history", "14:00", "30" },
-        // { "computer", "12:30", "100" } };
+        // { "computer", "12:30", "100" }, { "a", "14:40", "10" } };
+        // String[][] strArr = { { "korean", "11:40", "20" }, { "english", "12:10", "30"
+        // }, { "math", "12:30", "40" } };
+        // String[][] strArr = { { "a", "09:00", "30" }, { "b", "09:10", "20" }, { "c",
+        // "09:15", "20" },
+        // { "d", "09:55", "10" }, { "e", "10:50", "5" } };
 
-        p2.s_2(strArr);
+        String[][] strArr = { { "a", "09:00", "30" }, { "b", "09:20", "10" }, { "c", "09:40", "10" } };
+
+        p2.s2_2(strArr);
     }
 }
