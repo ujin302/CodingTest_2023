@@ -324,22 +324,43 @@ public class programmersLeve2 {
         return answer;
     }
 
+    public int s3(String[][] book_time) {
+        System.out.println("호텔 대실");
+
+        Arrays.sort(book_time, (o1, o2) -> toSec(o1[0]) - toSec(o2[0])); // 체크인 시간 오름차순 정렬
+        PriorityQueue<int[]> book_Queue = new PriorityQueue<>((o1, o2) -> o1[1] - o2[1]); // 체크아웃 시간 오름차순
+
+        for (String[] bookStr : book_time) {
+            int[] book = new int[2];
+            book[0] = toSec(bookStr[0]); // 체크인
+            book[1] = toSec(bookStr[1]) + 10; // 체크아웃
+
+            if (!book_Queue.isEmpty()) { // 현재 사용중인 방 존재 확인
+                int[] temp = book_Queue.peek();
+
+                // 이전 대실 진행 사항 확인
+                if (book[0] >= temp[1]) { // 대실 완료
+                    /*
+                     * 현재 예약 시작 시간 >= 이전 예약 종료 시간
+                     * >> 이전 예약 종료되어 해당 방을 사용할 수 있음
+                     * >> 따라서 Queue에서 이전 예약을 삭제함.
+                     * >> Queue는 현재 사용중인 방에 대한 체크인/체크아웃의 정보만 가지고 있음.
+                     */
+                    book_Queue.poll();
+                }
+            }
+            book_Queue.add(book); // 현재 예약 저장
+        }
+
+        return book_Queue.size();
+    }
+
     public static void main(String[] args) {
         System.out.println("Lv.2");
         programmersLeve2 p2 = new programmersLeve2();
-        // String[][] strArr = { { "korean", "11:40", "30" }, { "english", "12:10", "20"
-        // }, { "math", "12:30", "40" } };
-        // String[][] strArr = { { "science", "12:40", "50" }, { "music", "12:20", "40"
-        // }, { "history", "14:00", "30" },
-        // { "computer", "12:30", "100" }, { "a", "14:40", "10" } };
-        // String[][] strArr = { { "korean", "11:40", "20" }, { "english", "12:10", "30"
-        // }, { "math", "12:30", "40" } };
-        // String[][] strArr = { { "a", "09:00", "30" }, { "b", "09:10", "20" }, { "c",
-        // "09:15", "20" },
-        // { "d", "09:55", "10" }, { "e", "10:50", "5" } };
+        String[][] strArr = { { "15:00", "17:00" }, { "16:40", "18:20" }, { "14:20", "15:20" }, { "14:10", "19:20" },
+                { "18:20", "21:20" } };
 
-        String[][] strArr = { { "a", "09:00", "30" }, { "b", "09:20", "10" }, { "c", "09:40", "10" } };
-
-        p2.s2_2(strArr);
+        System.out.println(p2.s3(strArr));
     }
 }
