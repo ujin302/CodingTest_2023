@@ -324,6 +324,48 @@ public class programmersLeve2 {
         return answer;
     }
 
+    public int s3_1(String[][] book_time) {
+        System.out.println("다시 풀기1_호텔 대실");
+        /*
+         * 1. 시간은 분단위
+         * 2. String 배열 : 체크인 시간 기준 오름차순 정렬
+         * 3. 우선순위 큐 : 체크아웃 시간+10(청소) 기준 오름차순 정렬
+         * >> 우선순위 큐에는 현재 방을 사용중인 예약에 대한 정보를 가지고 있음
+         * 즉, 큐의 크기는 방의 개수를 의미함.
+         * 
+         * 4. 현재 예약 체크아웃 시간(방을 사용하고 있는 예약) <= 다음 예약 체크인 시간 (현재 방을 사용하고 있지 않은 예약)
+         * >> 해당 경우, 체크아웃 시간이 되었기에 큐에서 현재 예약 제거
+         * >> 그 후, 다음 예약이 방금 체크아웃한 방을 사용하기에 큐에 저장
+         * 
+         * 5. 4번의 경우가 아닐 경우 그냥 큐에 저장
+         * >> 새로운 방 부여
+         */
+
+        // 1. 체크인 시간 기준 오름차순 정렬
+        Arrays.sort(book_time, (o1, o2) -> toSec(o1[0]) - toSec(o2[0]));
+
+        // 2. 우선순위 큐 >> 체크아웃 시간 기준으로 오름차순 정렬
+        // >> 현재 방을 사용하고 있는 예약 저장
+        PriorityQueue<int[]> book_CheckOut = new PriorityQueue<>((o1, o2) -> o1[1] - o2[1]);
+
+        for (String[] bookStr : book_time) {
+            int[] book = new int[2];
+            book[0] = toSec(bookStr[0]); // 체크인
+            book[1] = toSec(bookStr[1]) + 10; // 체크아웃
+
+            if (!book_CheckOut.isEmpty()) { // 현재 방을 사용중인 예약 존재
+                if (book_CheckOut.peek()[1] <= book[0]) {
+                    // 현재 사용중인 방의 체크아웃 시간 <= 새로운 에약의 체크인 시간
+                    book_CheckOut.poll(); // 체크아웃 시간으로 간주하여 큐에서 제거
+                }
+            }
+            // 새로운 예약 큐에 저장
+            book_CheckOut.add(book);
+        }
+
+        return book_CheckOut.size();
+    }
+
     public int s3(String[][] book_time) {
         System.out.println("호텔 대실");
 
@@ -361,6 +403,6 @@ public class programmersLeve2 {
         String[][] strArr = { { "15:00", "17:00" }, { "16:40", "18:20" }, { "14:20", "15:20" }, { "14:10", "19:20" },
                 { "18:20", "21:20" } };
 
-        System.out.println(p2.s3(strArr));
+        System.out.println(p2.s3_1(strArr));
     }
 }
