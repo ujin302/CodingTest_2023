@@ -14,7 +14,7 @@ public class D3 {
 
 			int a = 0, b = 0;
 			int shepCount = 0; // # 개수
-			boolean start = false, end = false;
+			boolean start = false;
 
 			// 입력값 저장
 			for (int i = 0; i < n; i++) {
@@ -26,7 +26,6 @@ public class D3 {
 						if (!start) {
 							a = i;
 							b = j;
-							start = true;
 						}
 						shepCount++;
 					}
@@ -38,7 +37,6 @@ public class D3 {
 				for (int i = a; i <= a + len; i++) {
 					for (int j = b; j <= b + len; j++) {
 						if (chSQ[i][j] != '#') {
-							end = false;
 							break;
 						} else {
 							shepCount--;
@@ -527,6 +525,7 @@ public class D3 {
 
 	public static void main(String[] args) {
 		D3 d = new D3();
+
 		int[][] land = { { 1, 2, 3, 5 }, { 5, 6, 7, 8 }, { 4, 3, 2, 1 } };
 		d.D3_14();
 	}

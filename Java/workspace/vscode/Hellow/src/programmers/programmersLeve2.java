@@ -397,12 +397,88 @@ public class programmersLeve2 {
         return book_Queue.size();
     }
 
+    public int s4(String[] want, int[] number, String[] discount) {
+        System.out.println("할인 행사");
+        int answer = 0;
+
+        int wantLen = want.length; // 항목 개수
+        int discountLen = discount.length; // 닐짜별 세일하는 항목
+        int dis_Idx = 0; // discount 인덱스 번호 & 날짜
+
+        while (dis_Idx < discountLen) {
+            // 1. 남은 날짜가 10일을 넘은 경우에만 실행
+            if (discountLen - dis_Idx >= 10) {
+                Boolean isNotCorrect = false; // 원하는 제품을 모두 할인 받을 수 없으면 true
+
+                // 2. 10일 간 할인 품목 설정
+                HashMap<String, Integer> tenDayMap = new HashMap<>(); // 10일 간 할인하는 항목과 개수
+                for (int i = 0; i < 10; i++) {
+                    String key = discount[dis_Idx + i];
+                    tenDayMap.put(key, tenDayMap.getOrDefault(key, 0) + 1);
+                }
+
+                for (int i = 0; i < wantLen; i++) {
+                    int getMap = tenDayMap.getOrDefault(want[i], 0);
+                    if (getMap < number[i]) {
+                        // 할인 개수 < 구매하고 싶은 개수
+                        isNotCorrect = true;
+                        break;
+                    }
+                }
+
+                // 원하는 제품을 모두 할인 O
+                if (!isNotCorrect) {
+                    answer++;
+                }
+            } else {
+                break;
+            }
+            dis_Idx++;
+        }
+
+        return answer;
+    }
+
+    public int s5(int[][] targets) {
+        System.out.println("요격 시스템");
+        int answer = 0;
+        int time = 0; // 현재 시간
+
+        // 미사일 발사 시작, 끝 시간 오름차순 정렬
+        PriorityQueue<int[]> bombStartQueue = new PriorityQueue<>((o1, o2) -> o1[0] - o2[0]);
+        PriorityQueue<int[]> bombEndQueue = new PriorityQueue<>((o1, o2) -> o1[1] - o2[1]);
+
+        for (int[] t : targets) {
+            bombStartQueue.add(t);
+        }
+
+        while (!bombStartQueue.isEmpty()) {
+            int[] currentBomb = bombStartQueue.poll();
+            if (time < currentBomb[0]) {
+                // 현재시간 < 미사일 시작 시간
+                time = currentBomb[0];
+                bombStartQueue.add(currentBomb);
+            } else {
+                bombEndQueue.add(currentBomb);
+            }
+        }
+        return answer;
+    }
+
     public static void main(String[] args) {
         System.out.println("Lv.2");
         programmersLeve2 p2 = new programmersLeve2();
-        String[][] strArr = { { "15:00", "17:00" }, { "16:40", "18:20" }, { "14:20", "15:20" }, { "14:10", "19:20" },
-                { "18:20", "21:20" } };
 
-        System.out.println(p2.s3_1(strArr));
+        int[][] targets = {
+                { 4, 5 },
+                { 4, 8 },
+                { 10, 14 },
+                { 11, 13 },
+                { 5, 12 },
+                { 3, 7 },
+                { 1, 4 }
+        };
+
+        System.out.println(p2.s5(targets));
     }
 }
