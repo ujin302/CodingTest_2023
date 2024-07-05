@@ -14,9 +14,13 @@ public class programmersLeve1 {
         int listLen = id_list.length;
         HashMap<String, Integer> indexMap = new HashMap<String, Integer>(); // 식별번호
         String[][] reportArr = new String[listLen][report.length]; // 신고한 명단 배열
+        // int[][] reportArr = new int[listLen][report.length]; // 신고한 명단 배열
         int[] getReportArr = new int[listLen]; // 신고당한 횟수 배열
         int[] mailCountArr = new int[listLen]; // 메일 전송 개수 저장 배열
+        // int[] stopNameArr = new int[listLen]; // 정지 당한 명단 배열
         String[] stopNameArr = new String[listLen]; // 정지 당한 명단 배열
+
+        int num = 0;
 
         // 1. 사람별 index 설정
         for (int i = 0; i < listLen; i++) {
@@ -25,23 +29,37 @@ public class programmersLeve1 {
 
         // 2. 신고당한 횟수 배열 && 신고한 명단 배열
         for (int i = 0; i < report.length; i++) {
+            // int a = indexMap.get(report[i].split(" ")[0]); // 신고한 사람
+            // int b = indexMap.get(report[i].split(" ")[1]); // 신고 당한 사람
+
             String a = report[i].split(" ")[0]; // 신고한 사람
             String b = report[i].split(" ")[1]; // 신고 당한 사람
 
-            // 1) 신고당한 횟수 배열
-            getReportArr[indexMap.get(b)]++;
-
-            // 2) 신고한 명단 배열 (중복 X)
             for (int t = 0; t < report.length; t++) {
+                boolean isOver = false; // 중복 값
                 if (reportArr[indexMap.get(a)][t] == null) {
-                    reportArr[indexMap.get(a)][t] = b;
-                    break;
+                    // 중복 확인
+                    for (String reNum : reportArr[indexMap.get(a)]) {
+                        if (reNum == null)
+                            break;
+
+                        if (reNum.equals(b)) {
+                            isOver = true; // 중복됨
+                        }
+                    }
+
+                    if (!isOver) {
+                        // 신고한 명단 배열
+                        reportArr[indexMap.get(a)][t] = b;
+                        // 신고당한 횟수 배열
+                        getReportArr[indexMap.get(b)]++;
+                        break;
+                    }
                 }
             }
         }
 
         // 3. 정지 계정 선별하기
-        int num = 0;
         for (int i = 0; i < listLen; i++) {
             if (getReportArr[i] >= k) {
                 stopNameArr[num] = id_list[i];
@@ -50,17 +68,31 @@ public class programmersLeve1 {
         }
 
         // 4. 메일 전송
-        for (int i = 0; i < listLen; i++) {
-            for (int t = 0; t < report.length; t++) {
-                if (reportArr[i][t] != null) {
-                    for (String name : stopNameArr) {
-                        if (reportArr[i][t].equals(name)) {
-                            mailCountArr[i]++;
-                        }
+        for (int n = 0; n < num; n++) {
+            for (int i = 0; i < listLen; i++) {
+                for (int t = 0; t < report.length; t++) {
+                    if (reportArr[i][t] == null)
+                        break;
+
+                    if (reportArr[i][t].equals(stopNameArr[n])) {
+                        mailCountArr[i]++;
                     }
                 }
             }
         }
+
+        // for (int i = 0; i < listLen; i++) {
+        // for (int t = 0; t < report.length; t++) {
+        // if (reportArr[i][t] == 0)
+        // break;
+
+        // for (int intNum : stopNameArr) {
+        // if (reportArr[i][t] == intNum) {
+        // mailCountArr[i]++;
+        // }
+        // }
+        // }
+        // }
 
         return mailCountArr;
     }
@@ -186,7 +218,11 @@ public class programmersLeve1 {
 
     public static void main(String[] args) {
         String[] id_list = { "muzi", "frodo", "apeach", "neo" };
-        String[] report = { "muzi frodo", "apeach frodo", "frodo neo", "muzi neo", "apeach muzi" };
+        String[] report = { "muzi frodo", "apeach frodo", "frodo neo", "muzi neo",
+                "apeach muzi" };
+
+        // String[] id_list = { "con", "ryan" };
+        // String[] report = { "ryan con", "ryan con", "ryan con", "ryan con" };
         int k = 2;
 
         solution4(id_list, report, k);
