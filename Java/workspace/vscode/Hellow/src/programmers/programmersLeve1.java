@@ -2,52 +2,78 @@ import java.util.*;
 
 // test
 public class programmersLeve1 {
-    public static int solution(String[] friends, String[] gifts) {
-        System.out.println("가장 많이 받은 선물");
-        int answer = 0;
-        int[][] giftGrap = new int[friends.length][friends.length];
-        // 선물 주고 받은 기록 저장
-        // int[][] friendInfo = new int[friends.length][4];
-        // 0 : 준 선물 1 : 받은 선물 3 : 선물 지수 4 : 다음달 받을 선물
-        HashMap<String, Integer> map = new HashMap<>();
-        // 친구와 해당 Index 저장
-
-        for (int i = 0; i < friends.length; i++) {
-            map.put(friends[i], i);
-        }
-
-        for (String temp : gifts) {
-            String gift1 = temp.split(" ")[0]; // 선물 준 사람
-            String gift2 = temp.split(" ")[1]; // 선물 받은 사람
-
-            // 2차원 배열 설정
-            giftGrap[map.get(gift1)][map.get(gift2)]++;
-        }
-
-        // for (int i = 0; i < friends.length; i++) {
-        // friendInfo[i][0] = 0;
-        // friendInfo[i][1] = 0;
-        // for (int t = 0; t < gifts.length; t++) {
-        // String gift1 = gifts[t].split(" ")[0]; // 선물 준 사람
-        // String gift2 = gifts[t].split(" ")[1]; // 선물 받은 사람
-        // // 선물 준 개수 설정
-        // if (friends[i].equals(gift1)) {
-        // friendInfo[i][0]++;
-        // }
-
-        // // 선물 받은 개수 설정
-        // if (friends[i].equals(gift2)) {
-        // friendInfo[i][1]++;
-        // }
-        // }
-        // }
-
-        // // 선물 지수 설정
-        // for (int i = 0; i < friends.length; i++) {
-        // friendInfo[i][2] = friendInfo[i][0] - friendInfo[i][1];
-        // }
-
+    public int[] solution4(String[] id_list, String[] report, int k) {
+        int[] answer = {};
         return answer;
+    }
+
+    public static int solution3(String[] friends, String[] gifts) {
+        System.out.println("가장 많이 받은 선물");
+        int fCount = friends.length;
+        int[][] giftArr = new int[fCount][fCount];
+        HashMap<String, Integer> indexMap = new HashMap<String, Integer>();
+        int[] giftPoint = new int[fCount];
+        int[] result = new int[fCount];
+
+        // 1. 사람별 index 설정
+        for (int i = 0; i < fCount; i++) {
+            indexMap.put(friends[i], i);
+        }
+
+        // 2. 선물 주고받은 개수 설정
+        for (int i = 0; i < gifts.length; i++) {
+            String a = gifts[i].split(" ")[0]; // 준 사람
+            String b = gifts[i].split(" ")[1]; // 받은 사람
+
+            int aIndex = indexMap.get(a);
+            int bIndex = indexMap.get(b);
+
+            giftArr[aIndex][bIndex]++;
+        }
+
+        // 3. 선물 지수 설정
+        for (int i = 0; i < fCount; i++) {
+            // i번째가 준 선물 : [i][0~n] 합
+            // i번째가 받은 선물 : [0~n][i] 합
+
+            int putSum = 0, getSum = 0;
+            for (int j = 0; j < fCount; j++) {
+                putSum += giftArr[i][j];
+                getSum += giftArr[j][i];
+            }
+            giftPoint[i] = putSum - getSum;
+        }
+
+        // 4. 결과값
+        for (int i = 0; i < fCount; i++) {
+            /*
+             * 1. 주고 받은 기록 O
+             * 더 많이 준 사람이 +1
+             * 
+             * 2. 주고 받은 기록 O && 주고 받은 수 동일
+             * 선물지수로 판단
+             */
+            for (int j = i + 1; j < fCount; j++) {
+                if ((giftArr[i][j] != 0 || giftArr[j][i] != 0) && (giftArr[i][j] != giftArr[j][i])) {
+                    // 1. 주고받음
+                    if (giftArr[i][j] > giftArr[j][i]) {
+                        result[i]++;
+                    } else if (giftArr[i][j] < giftArr[j][i]) {
+                        result[j]++;
+                    }
+                } else {
+                    // 2. 주고받지 않음 >> 선물 지수가 큰 사람이 받음
+                    if (giftPoint[i] > giftPoint[j]) {
+                        result[i]++;
+                    } else if (giftPoint[i] < giftPoint[j]) {
+                        result[j]++;
+                    }
+                }
+            }
+        }
+
+        Arrays.sort(result);
+        return result[fCount - 1];
     }
 
     public static int[] solution2(String[] name, int[] yearning, String[][] photo) {
@@ -101,13 +127,10 @@ public class programmersLeve1 {
     }
 
     public static void main(String[] args) {
-        // String[] friends = { "a", "b", "c" };
-        // String[] gifts = { "a b", "b a", "c a", "a c", "a c", "c a" };
+        String[] id_list = { "muzi", "frodo", "apeach", "neo" };
+        String[] report = { "muzi frodo", "apeach frodo", "frodo neo", "muzi neo", "apeach muzi" };
+        int k = 2;
 
-        String[] friends = { "joy", "brad", "alessandro", "conan", "david" };
-        String[] gifts = { "alessandro brad", "alessandro joy", "alessandro conan",
-                "david alessandro", "alessandro david" };
-
-        solution(friends, gifts);
+        solution4(id_list, report, k);
     }
 }

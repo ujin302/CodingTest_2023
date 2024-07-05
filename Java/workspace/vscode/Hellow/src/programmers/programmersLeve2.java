@@ -405,38 +405,35 @@ public class programmersLeve2 {
         int discountLen = discount.length; // 닐짜별 세일하는 항목
         int dis_Idx = 0; // discount 인덱스 번호 & 날짜
 
-        while (dis_Idx < discountLen) {
+        while (discountLen - dis_Idx >= 10) {
             // 1. 남은 날짜가 10일을 넘은 경우에만 실행
-            if (discountLen - dis_Idx >= 10) {
-                Boolean isNotCorrect = false; // 원하는 제품을 모두 할인 받을 수 없으면 true
+            Boolean isNotCorrect = false; // 원하는 제품을 모두 할인 받을 수 없으면 true
 
-                // 2. 10일 간 할인 품목 설정
-                HashMap<String, Integer> tenDayMap = new HashMap<>(); // 10일 간 할인하는 항목과 개수
-                for (int i = 0; i < 10; i++) {
-                    String key = discount[dis_Idx + i];
-                    tenDayMap.put(key, tenDayMap.getOrDefault(key, 0) + 1);
-                }
+            // 2. 10일 간 할인 품목 설정
+            HashMap<String, Integer> tenDayMap = new HashMap<>(); // 10일 간 할인하는 항목과 개수
+            for (int i = 0; i < 10; i++) {
+                String key = discount[dis_Idx + i];
+                tenDayMap.put(key, tenDayMap.getOrDefault(key, 0) + 1);
+            }
 
-                for (int i = 0; i < wantLen; i++) {
-                    int getMap = tenDayMap.getOrDefault(want[i], 0);
-                    if (getMap < number[i]) {
-                        // 할인 개수 < 구매하고 싶은 개수
-                        isNotCorrect = true;
-                        break;
-                    }
+            // 3. 할인 개수 < 구매하고 싶은 개수
+            for (int i = 0; i < wantLen; i++) {
+                int getMap = tenDayMap.getOrDefault(want[i], 0);
+                if (getMap < number[i]) {
+                    isNotCorrect = true;
+                    break;
                 }
+            }
 
-                // 원하는 제품을 모두 할인 O
-                if (!isNotCorrect) {
-                    answer++;
-                }
-            } else {
-                break;
+            // 4. 원하는 제품을 모두 할인 확인
+            if (!isNotCorrect) {
+                answer++;
             }
             dis_Idx++;
         }
 
         return answer;
+
     }
 
     public int s5(int[][] targets) {
