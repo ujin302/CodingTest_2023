@@ -2,9 +2,67 @@ import java.util.*;
 
 // test
 public class programmersLeve1 {
-    public int[] solution4(String[] id_list, String[] report, int k) {
-        int[] answer = {};
-        return answer;
+    public static int[] solution4(String[] id_list, String[] report, int k) {
+        System.out.println("신고 결과 받기");
+        /*
+         * 사람별 index -> 식별번호
+         * 신고한 명단 배열
+         * 신고당한 횟수 배열 -> 정지 계정 구하기
+         * 메일 전송 개수 저장 배열
+         */
+
+        int listLen = id_list.length;
+        HashMap<String, Integer> indexMap = new HashMap<String, Integer>(); // 식별번호
+        String[][] reportArr = new String[listLen][report.length]; // 신고한 명단 배열
+        int[] getReportArr = new int[listLen]; // 신고당한 횟수 배열
+        int[] mailCountArr = new int[listLen]; // 메일 전송 개수 저장 배열
+        String[] stopNameArr = new String[listLen]; // 정지 당한 명단 배열
+
+        // 1. 사람별 index 설정
+        for (int i = 0; i < listLen; i++) {
+            indexMap.put(id_list[i], i);
+        }
+
+        // 2. 신고당한 횟수 배열 && 신고한 명단 배열
+        for (int i = 0; i < report.length; i++) {
+            String a = report[i].split(" ")[0]; // 신고한 사람
+            String b = report[i].split(" ")[1]; // 신고 당한 사람
+
+            // 1) 신고당한 횟수 배열
+            getReportArr[indexMap.get(b)]++;
+
+            // 2) 신고한 명단 배열 (중복 X)
+            for (int t = 0; t < report.length; t++) {
+                if (reportArr[indexMap.get(a)][t] == null) {
+                    reportArr[indexMap.get(a)][t] = b;
+                    break;
+                }
+            }
+        }
+
+        // 3. 정지 계정 선별하기
+        int num = 0;
+        for (int i = 0; i < listLen; i++) {
+            if (getReportArr[i] >= k) {
+                stopNameArr[num] = id_list[i];
+                num++;
+            }
+        }
+
+        // 4. 메일 전송
+        for (int i = 0; i < listLen; i++) {
+            for (int t = 0; t < report.length; t++) {
+                if (reportArr[i][t] != null) {
+                    for (String name : stopNameArr) {
+                        if (reportArr[i][t].equals(name)) {
+                            mailCountArr[i]++;
+                        }
+                    }
+                }
+            }
+        }
+
+        return mailCountArr;
     }
 
     public static int solution3(String[] friends, String[] gifts) {
