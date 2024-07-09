@@ -1,6 +1,86 @@
+import java.text.*;
 import java.util.*;
 
 public class programmersLeve1 {
+    public static Date getDate(String strDate, int term) throws ParseException {
+        int[] time = new int[strDate.split("\\.").length]; // yyyy, MM, dd
+        String str = "";
+
+        for (int i = 0; i < time.length; i++) {
+            time[i] = Integer.parseInt(strDate.split("\\.")[i]);
+        }
+
+        // 달(month)가 1년을 넘은 경우
+        time[1] += term;
+        if (time[1] > 12) {
+            time[0]++;
+            time[1] -= 12;
+        }
+
+        if (time[2] == 1) {
+            time[2] = 28;
+            time[1]--;
+            if (time[1] == 0)
+                time[0]--;
+        } else
+            time[2]--;
+
+        for (int i = 0; i < time.length; i++) {
+            str += time[i] + "";
+            if (i != 2)
+                str += ".";
+        }
+
+        return new Date(new SimpleDateFormat("yyyy.MM.dd").parse(str).getTime());
+    }
+
+    public static int[] solution7(String today, String[] terms, String[] privacies) throws ParseException {
+        System.out.println("개인정보 수입 유효기간");
+        /*
+         * 예를 들어, A라는 약관의 유효기간이 12 달이고,
+         * 2021년 1월 5일에 수집된 개인정보가 A약관으로 수집되었다면
+         * 해당 개인정보는 2022년 1월 4일까지 보관 가능하며
+         * 2022년 1월 5일부터 파기해야 할 개인정보입니다.
+         * 
+         * today : 오늘 날짜를 의미하는 문자열
+         * terms : 약관의 유효기간을 담은 1차원 문자열 배열
+         * privacies : 수집된 개인정보의 정보를 담은 1차원
+         * >> privacies[i] = "yyyy.MM.dd 약관"
+         * 
+         * 이때 파기해야 할 개인정보의 번호를 오름차순으로 1차원 정수 배열에 담아
+         * return 하도록 solution 함수를 완성해 주세요.
+         */
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+        Date toDate = new Date(dateFormat.parse(today).getTime());
+        ArrayList<Integer> resultList = new ArrayList<>();
+        HashMap<String, Integer> termsMap = new HashMap<>();
+
+        // 약관 별 유효기간 저장
+        for (String t : terms) {
+            termsMap.put(t.split(" ")[0], Integer.parseInt(t.split(" ")[1]));
+        }
+
+        for (int i = 0; i < privacies.length; i++) {
+            Date date = getDate(privacies[i].split(" ")[0], termsMap.get(privacies[i].split(" ")[1]));
+
+            // 유효기간 지남
+            if (date.before(toDate)) {
+                resultList.add(i + 1);
+                System.out.print(i + " : ");
+                System.out.print(privacies[i].split(" ")[0] + " ");
+                System.out.println(privacies[i].split(" ")[1]);
+            }
+        }
+
+        int[] answer = new int[resultList.size()];
+        for (int i = 0; i < resultList.size(); i++) {
+            answer[i] = resultList.get(i);
+        }
+
+        return answer;
+    }
+
     public static int[][] solution6_1(int[][] data, String ext, int val_ext, String sort_by) {
         System.out.println("데이터 분석");
         // 다른 사람 풀이 참고하여 다시 품
@@ -197,7 +277,7 @@ public class programmersLeve1 {
 
         int listLen = id_list.length;
         HashMap<String, Integer> indexMap = new HashMap<String, Integer>(); // 식별번호
-        String[][] reportArr = new String[listLen][report.length]ㄴ; // 신고한 명단 배열
+        String[][] reportArr = new String[listLen][report.length]; // 신고한 명단 배열
         int[] getReportArr = new int[listLen]; // 신고당한 횟수 배열
         int[] mailCountArr = new int[listLen]; // 메일 전송 개수 저장 배열
         String[] stopNameArr = new String[listLen]; // 정지 당한 명단 배열
@@ -382,12 +462,11 @@ public class programmersLeve1 {
         return players;
     }
 
-    public static void main(String[] args) {
-        int[][] data = { { 1, 20300104, 100, 80 }, { 2, 20300804, 847, 37 }, { 3, 20300401, 10, 8 } };
-        String ext = "date";
-        int val_ext = 20300501;
-        String sort_by = "remain";
+    public static void main(String[] args) throws ParseException {
+        String today = "2022.05.19";
+        String[] terms = { "A 6", "B 12", "C 3" };
+        String[] privacies = { "2021.05.02 A", "2021.07.01 B", "2022.02.19 C", "2022.02.20 C" };
 
-        solution6(data, ext, val_ext, sort_by);
+        solution7(today, terms, privacies);
     }
 }
