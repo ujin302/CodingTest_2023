@@ -1,6 +1,87 @@
 import java.util.*;
 
 public class programmersLeve1 {
+    public static int[][] solution6_1(int[][] data, String ext, int val_ext, String sort_by) {
+        System.out.println("데이터 분석");
+        // 다른 사람 풀이 참고하여 다시 품
+
+        int[][] answer = {};
+        List<String> valeList = Arrays.asList(new String[] { "code", "date", "maximum", "remain" });
+        ArrayList<int[]> resultList = new ArrayList<>();
+        final int sortIndex = valeList.indexOf(sort_by);
+
+        for (int[] d : data) {
+            if (d[valeList.indexOf(ext)] < val_ext) {
+                resultList.add(d);
+            }
+        }
+
+        answer = resultList.toArray(new int[resultList.size()][data[0].length]);
+        Arrays.sort(answer, (o1, o2) -> o1[sortIndex] - o2[sortIndex]);
+
+        return answer;
+    }
+
+    public static int[][] solution6(int[][] data, String ext, int val_ext, String sort_by) {
+        System.out.println("데이터 분석");
+        /*
+         * data : 정렬한 데이터들이 담긴 이차원 정수 리스트
+         * data[i] : 코드 번호(code), 제조일(date), 최대 수량(maximum), 현재 수량(remain)
+         * data[i][1] : 제조일은 yyyyMMdd로 표현함.
+         * ext : 어떤 정보를 기준으로 데이터를 뽑아낼지를 의미하는 문자열
+         * val_ext : 뽑아낼 정보의 기준값을 나타내는 정수
+         * sort_by : 정보를 정렬할 기준이 되는 문자열
+         * 
+         * data에서 ext 값이 val_ext보다 작은 데이터만 뽑은 후,
+         * sort_by에 해당하는 값을 기준으로 오름차순으로 정렬하여
+         * return 하도록 solution 함수를 완성해 주세요.
+         */
+        int[][] answer = new int[data.length][data[0].length];
+        int indexExt = 0;
+        int count = 0;
+
+        switch (ext) {
+            case "code":
+                indexExt = 0;
+                break;
+            case "date":
+                indexExt = 1;
+                break;
+            case "maximum":
+                indexExt = 2;
+                break;
+            case "remain":
+                indexExt = 3;
+                break;
+        }
+
+        for (int i = 0; i < data.length; i++) {
+            if (data[i][indexExt] < val_ext) {
+                answer[count] = data[i];
+                count++;
+            }
+        }
+        answer = Arrays.copyOf(answer, count);
+
+        // 정렬
+        switch (sort_by) {
+            case "code":
+                Arrays.sort(answer, (o1, o2) -> o1[0] - o2[0]);
+                break;
+            case "date":
+                Arrays.sort(answer, (o1, o2) -> o1[1] - o2[1]);
+                break;
+            case "maximum":
+                Arrays.sort(answer, (o1, o2) -> o1[2] - o2[2]);
+                break;
+            case "remain":
+                Arrays.sort(answer, (o1, o2) -> o1[3] - o2[3]);
+                break;
+        }
+
+        return answer;
+    }
+
     public static int[] solution5(String[] park, String[] routes) {
         System.out.println("공원 산책");
         /*
@@ -83,7 +164,7 @@ public class programmersLeve1 {
             indexMap.put(id_list[i], i);
         }
 
-        // 2. 신고 정보 설정
+        // 2. 신고 정보 저장
         for (int i = 0; i < report.length; i++) {
             String a = report[i].split(" ")[0]; // 신고한 사람
             String b = report[i].split(" ")[1]; // 신고 당한 사람
@@ -93,7 +174,7 @@ public class programmersLeve1 {
             reportMap.get(b).add(a);
         }
 
-        // 4. 메일 전송
+        // 3. 메일 전송 대상 선별
         for (String stopName : reportMap.keySet()) {
             if (reportMap.get(stopName).size() >= k) { // 중단 계정 선별
                 for (String name : reportMap.get(stopName)) {
@@ -116,7 +197,7 @@ public class programmersLeve1 {
 
         int listLen = id_list.length;
         HashMap<String, Integer> indexMap = new HashMap<String, Integer>(); // 식별번호
-        String[][] reportArr = new String[listLen][report.length]; // 신고한 명단 배열
+        String[][] reportArr = new String[listLen][report.length]ㄴ; // 신고한 명단 배열
         int[] getReportArr = new int[listLen]; // 신고당한 횟수 배열
         int[] mailCountArr = new int[listLen]; // 메일 전송 개수 저장 배열
         String[] stopNameArr = new String[listLen]; // 정지 당한 명단 배열
@@ -302,14 +383,11 @@ public class programmersLeve1 {
     }
 
     public static void main(String[] args) {
-        // String[] park = { "SOO", "OOO", "OOO" };
-        // String[] routes = { "E 2", "S 2", "W 1" };
+        int[][] data = { { 1, 20300104, 100, 80 }, { 2, 20300804, 847, 37 }, { 3, 20300401, 10, 8 } };
+        String ext = "date";
+        int val_ext = 20300501;
+        String sort_by = "remain";
 
-        // String[] park = { "SOO", "OXX", "OOO" };
-        // String[] routes = { "E 2", "S 2", "W 1" };
-
-        String[] park = { "OSO", "OOO", "OXO", "OOO" };
-        String[] routes = { "E 2", "S 3", "W 1" };
-        solution5(park, routes);
+        solution6(data, ext, val_ext, sort_by);
     }
 }
