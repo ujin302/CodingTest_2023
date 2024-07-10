@@ -2,6 +2,64 @@ import java.text.*;
 import java.util.*;
 
 public class programmersLeve1 {
+    public static String solution8(String[] survey, int[] choices) {
+        System.out.println("성격 유형 검사하기");
+        /*
+         * 1번 지표 라이언형(R), 튜브형(T)
+         * 2번 지표 콘형(C), 프로도형(F)
+         * 3번 지표 제이지형(J), 무지형(M)
+         * 4번 지표 어피치형(A), 네오형(N)
+         * 
+         * 1 매우 비동의 >> 3
+         * 2 비동의 >> 2
+         * 3 약간 비동의 >> 1
+         * 4 모르겠음 >> 0
+         * 5 약간 동의 >> 1
+         * 6 동의 >> 2
+         * 7 매우 동의 >> 3
+         * 
+         */
+        String answer = "";
+        int len = survey.length;
+        int[] scoreArr = { 3, 2, 1, 0, 1, 2, 3 };
+        String[] surveyArr = { "R", "T", "C", "F", "J", "M", "A", "N" };
+        HashMap<String, Integer> resultMap = new HashMap<>();
+
+        // 점수 계산
+        for (int i = 0; i < len; i++) {
+            // 질문 유형 확인
+            String s1 = survey[i].charAt(0) + "";
+            String s2 = survey[i].charAt(1) + "";
+            int score = scoreArr[choices[i] - 1]; // 대답에 따른 점수
+
+            // 점수 저장
+            if (choices[i] < 4) {
+                // s1에 점수 ++
+                resultMap.put(s1, resultMap.getOrDefault(s1, 0) + score);
+            } else {
+                // s2에 점수 ++
+                resultMap.put(s2, resultMap.getOrDefault(s2, 0) + score);
+            }
+        }
+
+        // 성격 4가지 유형 확인
+        for (int i = 0; i < surveyArr.length; i += 2) {
+            int s1 = resultMap.getOrDefault(surveyArr[i], 0);
+            int s2 = resultMap.getOrDefault(surveyArr[i + 1], 0);
+
+            if (s1 >= s2) {
+                // 앞의 값이 크거나 같을 경우
+                // 같이 동일하면 사전순으로 더 빠른 값으로 지정함.
+                answer += surveyArr[i];
+            } else {
+                // 뒤의 값이 클 경우
+                answer += surveyArr[i + 1];
+            }
+        }
+
+        return answer;
+    }
+
     public static Date getDate(String strDate, int term) throws ParseException {
         int[] time = new int[strDate.split("\\.").length]; // yyyy, MM, dd
         String str = "";
@@ -67,9 +125,6 @@ public class programmersLeve1 {
             // 유효기간 지남
             if (date.before(toDate)) {
                 resultList.add(i + 1);
-                System.out.print(i + " : ");
-                System.out.print(privacies[i].split(" ")[0] + " ");
-                System.out.println(privacies[i].split(" ")[1]);
             }
         }
 
@@ -463,10 +518,12 @@ public class programmersLeve1 {
     }
 
     public static void main(String[] args) throws ParseException {
-        String today = "2022.05.19";
-        String[] terms = { "A 6", "B 12", "C 3" };
-        String[] privacies = { "2021.05.02 A", "2021.07.01 B", "2022.02.19 C", "2022.02.20 C" };
+        // String[] survey = { "AN", "CF", "MJ", "RT", "NA" };
+        // int[] choices = { 5, 3, 2, 7, 5 };
 
-        solution7(today, terms, privacies);
+        String[] survey = { "AN" };
+        int[] choices = { 7 };
+
+        solution8(survey, choices);
     }
 }
