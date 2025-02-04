@@ -2,7 +2,7 @@ import java.util.*;
 
 public class programmersLeve2 {
 
-    public static int s1(int k, int[] tangerine) {
+    public int s1(int k, int[] tangerine) {
         System.out.println("귤 고르기");
         int answer = 0;
         HashMap<Integer, Integer> mappedSize = new HashMap<>();
@@ -462,20 +462,55 @@ public class programmersLeve2 {
         return answer;
     }
 
+    public int s6(int[] priorities, int location) {
+        System.out.println("프로세스");
+        /*
+         * 1. 실행 대기 큐(Queue)에서 대기중인 프로세스 하나를 꺼냅니다.
+         * 2. 큐에 대기중인 프로세스 중 우선순위가 더 높은 프로세스가 있다면 방금 꺼낸 프로세스를 다시 큐에 넣습니다.
+         * 3. 만약 그런 프로세스가 없다면 방금 꺼낸 프로세스를 실행합니다.
+         * 3.1 한 번 실행한 프로세스는 다시 큐에 넣지 않고 그대로 종료됩니다.
+         */
+        int answer = 0;
+        int proCount = priorities.length; // 프로세스 개수수
+        Queue<String> proQueue = new LinkedList<>(); // 실행 대기 큐
+        for (int i = 0; i < proCount; i++) {
+            proQueue.add(i + "P");
+        }
+
+        // 최고 우선순위
+        int maxPriority = Arrays.stream(priorities).max().orElse(0);
+
+        while (true) {
+            String currentProcess = proQueue.poll(); // 현재 프로세스
+            int currentIndex = Integer.parseInt(currentProcess.replace("P", "")); // 현재 프로세스 인덱스 번호
+            int currentPrioiry = priorities[currentIndex]; // 현재 프로세스 우선순위
+
+            if (currentPrioiry < maxPriority) {
+                // 다시 큐에 저장
+                proQueue.add(currentProcess);
+
+            } else {
+                answer++; // 실행한 프로세스 개수
+                if (currentProcess.equals(location + "P"))
+                    return answer;
+
+                // 최고 우선순위 재설정
+                if (currentPrioiry == maxPriority) {
+                    priorities[currentIndex] = 0;
+                    maxPriority = Arrays.stream(priorities).max().orElse(0);
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("Lv.2");
         programmersLeve2 p2 = new programmersLeve2();
 
-        int[][] targets = {
-                { 4, 5 },
-                { 4, 8 },
-                { 10, 14 },
-                { 11, 13 },
-                { 5, 12 },
-                { 3, 7 },
-                { 1, 4 }
+        int[] targets = {
+                1, 1, 9, 1, 1, 1
         };
 
-        System.out.println(p2.s5(targets));
+        System.out.println(p2.s6(targets, 0));
     }
 }

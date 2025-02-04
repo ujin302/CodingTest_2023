@@ -2,7 +2,46 @@ import java.text.*;
 import java.util.*;
 
 public class programmersLeve1 {
-    public static String solution8(String[] survey, int[] choices) {
+    public int solution10(int[] d, int budget) {
+        int sum = 0;
+        int count = 0;
+        Arrays.sort(d);
+        for (int i : d) {
+            sum += i;
+            if (sum <= budget)
+                count++;
+            else
+                break;
+        }
+        return count;
+    }
+
+    public long solution9(int price, int money, int count) {
+        // 등차수열 합과 Max로 푼 사람도 있음... 대박
+        /*
+         * 이 놀이기구의 원래 이용료는 price원
+         * 놀이기구를 N 번째 이용 -> 원래 이용료의 N배
+         * 
+         * 즉, 처음 이용료가 100이었다면
+         * 2번째에는 200,
+         * 3번째에는 300으로 요금이 인상
+         * 
+         * 놀이기구를 count번 타게 되면
+         * 현재 자신이 가지고 있는 금액에서 얼마가 모자라는지를 return
+         * 단, 금액이 부족하지 않으면 0을 return 하세요.
+         */
+        long total = 0;
+        for (int i = 0; i < count; i++) {
+            total += price * (i + 1);
+        }
+
+        if (total <= money)
+            return 0;
+        else
+            return (long) (total - money);
+    }
+
+    public String solution8(String[] survey, int[] choices) {
         System.out.println("성격 유형 검사하기");
         /*
          * 1번 지표 라이언형(R), 튜브형(T)
@@ -60,7 +99,7 @@ public class programmersLeve1 {
         return answer;
     }
 
-    public static Date getDate(String strDate, int term) throws ParseException {
+    public Date getDate(String strDate, int term) throws ParseException {
         int[] time = new int[strDate.split("\\.").length]; // yyyy, MM, dd
         String str = "";
 
@@ -92,7 +131,7 @@ public class programmersLeve1 {
         return new Date(new SimpleDateFormat("yyyy.MM.dd").parse(str).getTime());
     }
 
-    public static int[] solution7(String today, String[] terms, String[] privacies) throws ParseException {
+    public int[] solution7(String today, String[] terms, String[] privacies) throws ParseException {
         System.out.println("개인정보 수입 유효기간");
         /*
          * 예를 들어, A라는 약관의 유효기간이 12 달이고,
@@ -136,7 +175,7 @@ public class programmersLeve1 {
         return answer;
     }
 
-    public static int[][] solution6_1(int[][] data, String ext, int val_ext, String sort_by) {
+    public int[][] solution6_1(int[][] data, String ext, int val_ext, String sort_by) {
         System.out.println("데이터 분석");
         // 다른 사람 풀이 참고하여 다시 품
 
@@ -157,7 +196,7 @@ public class programmersLeve1 {
         return answer;
     }
 
-    public static int[][] solution6(int[][] data, String ext, int val_ext, String sort_by) {
+    public int[][] solution6(int[][] data, String ext, int val_ext, String sort_by) {
         System.out.println("데이터 분석");
         /*
          * data : 정렬한 데이터들이 담긴 이차원 정수 리스트
@@ -217,7 +256,7 @@ public class programmersLeve1 {
         return answer;
     }
 
-    public static int[] solution5(String[] park, String[] routes) {
+    public int[] solution5(String[] park, String[] routes) {
         System.out.println("공원 산책");
         /*
          * S : 시작
@@ -287,7 +326,7 @@ public class programmersLeve1 {
         return new int[] { x, y };
     }
 
-    public static int[] solution4_1(String[] id_list, String[] report, int k) {
+    public int[] solution4_1(String[] id_list, String[] report, int k) {
         System.out.println("신고 결과 받기");
         int listLen = id_list.length;
         HashMap<String, Integer> indexMap = new HashMap<String, Integer>(); // 식별번호
@@ -321,7 +360,7 @@ public class programmersLeve1 {
         return mailCountArr;
     }
 
-    public static int[] solution4(String[] id_list, String[] report, int k) {
+    public int[] solution4(String[] id_list, String[] report, int k) {
         System.out.println("신고 결과 받기");
         /*
          * 사람별 index -> 식별번호
@@ -398,7 +437,7 @@ public class programmersLeve1 {
         return mailCountArr;
     }
 
-    public static int solution3(String[] friends, String[] gifts) {
+    public int solution3(String[] friends, String[] gifts) {
         System.out.println("가장 많이 받은 선물");
         int fCount = friends.length;
         int[][] giftArr = new int[fCount][fCount];
@@ -467,7 +506,7 @@ public class programmersLeve1 {
         return result[fCount - 1];
     }
 
-    public static int[] solution2(String[] name, int[] yearning, String[][] photo) {
+    public int[] solution2(String[] name, int[] yearning, String[][] photo) {
         System.out.println("추억의 문제");
         int[] answer = {};
         answer = new int[photo.length];
@@ -494,7 +533,7 @@ public class programmersLeve1 {
 
     // 배열을 이중 For문을 사용하여 구현하였으나 시간초과로 실패
     // Map를 사용하여 For문 한번 사용 & 하나씩 확인하는 것이 아닌 필요한 값을 키를 활용하여 가져오기 때문에 시간 단축
-    public static String[] solution1(String[] players, String[] callings) {
+    public String[] solution1(String[] players, String[] callings) {
         System.out.println("달리기 경주");
         HashMap<String, Integer> mappedByPlayer = new HashMap<>();
         // 초기화
@@ -510,7 +549,7 @@ public class programmersLeve1 {
             players[Rank - 1] = callings[i];
             players[Rank] = frontString;
 
-            // 변경된 순위 기준으로 수행하여야 하기에 map 순위 업데이트
+            // 변경된 순위 기준으로 수행하여야 하기에 map 순위 업데이트f
             mappedByPlayer.put(callings[i], Rank - 1);
             mappedByPlayer.put(frontString, Rank);
         }
@@ -518,12 +557,8 @@ public class programmersLeve1 {
     }
 
     public static void main(String[] args) throws ParseException {
-        // String[] survey = { "AN", "CF", "MJ", "RT", "NA" };
-        // int[] choices = { 5, 3, 2, 7, 5 };
+        programmersLeve1 p1 = new programmersLeve1();
 
-        String[] survey = { "AN" };
-        int[] choices = { 7 };
-
-        solution8(survey, choices);
+        p1.solution9(2500, 4, 2500);
     }
 }

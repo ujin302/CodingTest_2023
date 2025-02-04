@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "programmersLeve2",
+            "request": "launch",
+            "mainClass": "programmersLeve2",
+            "projectName": "Coding_e35d3eab"
+        },
+        {
+            "type": "java",
             "name": "S1",
             "request": "launch",
             "mainClass": "SWEA.S1",
