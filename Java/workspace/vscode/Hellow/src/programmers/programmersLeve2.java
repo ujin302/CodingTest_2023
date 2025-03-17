@@ -371,7 +371,7 @@ public class programmersLeve2 {
 
         Arrays.sort(book_time, (o1, o2) -> toSec(o1[0]) - toSec(o2[0])); // 체크인 시간 오름차순 정렬
         PriorityQueue<int[]> book_Queue = new PriorityQueue<>((o1, o2) -> o1[1] - o2[1]); // 체크아웃 시간 오름차순
-
+        
         for (String[] bookStr : book_time) {
             int[] book = new int[2];
             book[0] = toSec(bookStr[0]); // 체크인
@@ -464,12 +464,6 @@ public class programmersLeve2 {
 
     public int s6(int[] priorities, int location) {
         System.out.println("프로세스");
-        /*
-         * 1. 실행 대기 큐(Queue)에서 대기중인 프로세스 하나를 꺼냅니다.
-         * 2. 큐에 대기중인 프로세스 중 우선순위가 더 높은 프로세스가 있다면 방금 꺼낸 프로세스를 다시 큐에 넣습니다.
-         * 3. 만약 그런 프로세스가 없다면 방금 꺼낸 프로세스를 실행합니다.
-         * 3.1 한 번 실행한 프로세스는 다시 큐에 넣지 않고 그대로 종료됩니다.
-         */
         int answer = 0;
         int proCount = priorities.length; // 프로세스 개수수
         Queue<String> proQueue = new LinkedList<>(); // 실행 대기 큐
@@ -488,6 +482,7 @@ public class programmersLeve2 {
             if (currentPrioiry < maxPriority) {
                 // 다시 큐에 저장
                 proQueue.add(currentProcess);
+                System.out.println(proQueue);
 
             } else {
                 answer++; // 실행한 프로세스 개수
@@ -498,9 +493,16 @@ public class programmersLeve2 {
                 if (currentPrioiry == maxPriority) {
                     priorities[currentIndex] = 0;
                     maxPriority = Arrays.stream(priorities).max().orElse(0);
+                    Arrays.stream(priorities).min().orElse(0);
                 }
             }
         }
+    }
+
+    public int solution(int[] scoville, int K) {
+        System.out.println("더 맵게");
+        int answer = 0;
+        return answer;
     }
 
     public static void main(String[] args) {

@@ -1,1 +1,1 @@
-print("태수 바부")
+print("hi")
