@@ -371,7 +371,7 @@ public class programmersLeve2 {
 
         Arrays.sort(book_time, (o1, o2) -> toSec(o1[0]) - toSec(o2[0])); // 체크인 시간 오름차순 정렬
         PriorityQueue<int[]> book_Queue = new PriorityQueue<>((o1, o2) -> o1[1] - o2[1]); // 체크아웃 시간 오름차순
-        
+
         for (String[] bookStr : book_time) {
             int[] book = new int[2];
             book[0] = toSec(bookStr[0]); // 체크인
@@ -505,6 +505,40 @@ public class programmersLeve2 {
         return answer;
     }
 
+    public int s7(int[] players, int m, int k) {
+        System.out.println("");
+        int answer = 0;
+        int serverCount = 0; // 서버 개수
+        Queue<int[]> timeQueue = new LinkedList<int[]>(); // 삭제할 시간, 삭제할 개수
+
+        for (int i = 0; i < players.length; i++) {
+            System.out.println("i = " + i + " & server count = " + serverCount);
+            // 서버 삭제 개수 설정
+            if (timeQueue.size() > 0 && timeQueue.peek()[0] == i) {
+                serverCount -= timeQueue.peek()[1];
+                timeQueue.poll();
+            }
+
+            // 서버 추가 개수 설정
+            if (players[i] >= m) {
+                int c = players[i] / m; // 필요한 서버 수
+
+                // 서버 증설해야 하는 경우
+                if (serverCount < c) {
+
+                    c -= serverCount;
+                    serverCount += c;
+
+                    int[] arr = { i + k, c };
+                    System.out.println(">> c = " + c + " & i+k = " + (i + k));
+                    timeQueue.add(arr);
+                    answer += c;
+                }
+            }
+        }
+        return answer;
+    }
+
     public static void main(String[] args) {
         System.out.println("Lv.2");
         programmersLeve2 p2 = new programmersLeve2();
@@ -512,6 +546,9 @@ public class programmersLeve2 {
         int[] targets = {
                 1, 1, 9, 1, 1, 1
         };
+
+        int[] players = { 0, 2, 3, 3, 1, 2, 0, 0, 0, 0, 4, 2, 0, 6, 0, 4, 2, 13, 3, 5, 10, 0, 1, 5 };
+        p2.s7(players, 3, 5);
 
         System.out.println(p2.s6(targets, 0));
     }
