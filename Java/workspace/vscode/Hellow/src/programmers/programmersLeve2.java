@@ -545,39 +545,3 @@ public class programmersLeve2 {
         System.out.println(p2.s6(targets, 0));
     }
 }
-
-public class Main {
-    
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        
-        int n = sc.nextInt();
-
-        char[][] arr;
-        for(int i=0; i<n; i++) {
-            String str = sc.next();
-            if(i == 0) {
-                arr = new char[n][str.length()];
-            }
-            char[] arr1 = str.toCharArray();
-        }
-        
-        for(int t=0; t<arr[0].length; t++) {
-            boolean isBreak = false;
-            for(int i=1; i<n; i++) {
-                //for(int j=i; j<n; j++) {
-                    if(arr[0][t] != arr[i][t]) {
-                        System.out.print("?");
-                        isBreak = true;
-                        break;
-                    }
-                    
-                    if(i == n-1) System.out.print(arr[0][t]);
-                //}
-                //if(isBreak) break;
-            }
-            if(isBreak) break;
-        }
-        
-    }
-}
