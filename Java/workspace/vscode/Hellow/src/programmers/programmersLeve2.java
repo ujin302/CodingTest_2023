@@ -519,21 +519,13 @@ public class programmersLeve2 {
                 timeQueue.poll();
             }
 
-            // 서버 추가 개수 설정
-            if (players[i] >= m) {
-                int c = players[i] / m; // 필요한 서버 수
-
-                // 서버 증설해야 하는 경우
-                if (serverCount < c) {
-
-                    c -= serverCount;
-                    serverCount += c;
-
-                    int[] arr = { i + k, c };
-                    System.out.println(">> c = " + c + " & i+k = " + (i + k));
-                    timeQueue.add(arr);
-                    answer += c;
-                }
+            // 서버 증설해야 하는 경우
+            int c = players[i] / m; // 필요한 서버 수
+            if (players[i] >= m && c > serverCount) {
+                answer += (c -= serverCount);
+                serverCount += c;
+                System.out.println(">> c = " + c + " & i+k = " + (i + k));
+                timeQueue.add(new int[] { i + k, c });
             }
         }
         return answer;
@@ -551,5 +543,41 @@ public class programmersLeve2 {
         p2.s7(players, 3, 5);
 
         System.out.println(p2.s6(targets, 0));
+    }
+}
+
+public class Main {
+    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        int n = sc.nextInt();
+
+        char[][] arr;
+        for(int i=0; i<n; i++) {
+            String str = sc.next();
+            if(i == 0) {
+                arr = new char[n][str.length()];
+            }
+            char[] arr1 = str.toCharArray();
+        }
+        
+        for(int t=0; t<arr[0].length; t++) {
+            boolean isBreak = false;
+            for(int i=1; i<n; i++) {
+                //for(int j=i; j<n; j++) {
+                    if(arr[0][t] != arr[i][t]) {
+                        System.out.print("?");
+                        isBreak = true;
+                        break;
+                    }
+                    
+                    if(i == n-1) System.out.print(arr[0][t]);
+                //}
+                //if(isBreak) break;
+            }
+            if(isBreak) break;
+        }
+        
     }
 }
