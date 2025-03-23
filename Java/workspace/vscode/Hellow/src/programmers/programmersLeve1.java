@@ -2,6 +2,39 @@ import java.text.*;
 import java.util.*;
 
 public class programmersLeve1 {
+    public int solution(int[] schedules, int[][] timelogs, int startday) {
+        System.out.println("유연근무제");
+        int answer = 0;
+        // schedules: 출근 희망 시각
+        // timelogs: 출근한 시각
+        // startday: 이벤트를 시작한 요일
+        // 월 >> 1, 화 >> 2 ... , 일 >> 7
+
+        int person = schedules.length; // 직원 수
+        answer = person;
+        for (int i = 0; i < person; i++) {
+            // 현재 요일
+            int nowday = startday;
+
+            // 출근 인정 시각
+            int min = schedules[i] % 100 + 10;
+            int worktime = schedules[i] / 100 * 100 + (min < 60 ? min : (100 + min % 60));
+            System.out.println("출근 인정 시각: " + worktime);
+
+            // 지각 체크
+            for (int t : timelogs[i]) {
+                System.out.println("오늘 날짜: " + nowday);
+                if (worktime < t && nowday >= 1 && nowday <= 5) {
+                    answer--;
+                    break;
+                }
+                nowday = nowday == 7 ? 1 : ++nowday;
+            }
+        }
+
+        return answer;
+    }
+
     public int solution10(int[] d, int budget) {
         int sum = 0;
         int count = 0;
