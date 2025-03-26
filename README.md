@@ -1,4 +1,13 @@
-# CodingTest_Python
-# 안녀어~
-# 안녕 태수
-# 언어 설치가 젤 어려웡...
+# [프로그래머스](https://github.com/ujin302/CodingTest_2023/tree/main/Java/workspace/vscode/Hellow/src/programmers)
+- Level0
+- Level1
+- Level2
+- Level3
+
+# [백준](https://github.com/ujin302/CodingTest_2023/tree/main/Java/workspace/vscode/Hellow/src/BackJun)
+- Bronze1
+- Silver2
+
+# [SWEA](https://github.com/ujin302/CodingTest_2023/tree/main/Java/workspace/vscode/Hellow/src/SWEA)
+- D3
+- S1
