@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "S1_2178",
+            "request": "launch",
+            "mainClass": "BackJun.silver.s1.S1_2178",
+            "projectName": "Coding_e35d3eab"
+        },
+        {
+            "type": "java",
             "name": "S2_1260",
             "request": "launch",
             "mainClass": "BackJun.silver.s2.S2_1260",
