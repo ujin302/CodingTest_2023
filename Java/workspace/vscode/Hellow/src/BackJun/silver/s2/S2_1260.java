@@ -14,7 +14,7 @@ public class S2_1260 {
         check[v] = true;
         System.out.print(v + " ");
         for (int i = 1; i < graph.length; i++) {
-            // 노드 v와 인접한 노드 && 미미방문 노드
+            // 노드 v와 인접한 노드 && 미방문 노드
             if (graph[v][i] == 1 && !check[i]) {
                 dfs(i); // i 노드와 인접한 노드 구하기
             }
