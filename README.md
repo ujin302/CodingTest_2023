@@ -7,8 +7,13 @@
 
 ### [백준](https://github.com/ujin302/CodingTest_2023/tree/main/Java/workspace/vscode/Hellow/src/BackJun)
 - Bronze1
+- Silver1
 - Silver2
 
 ### [SWEA](https://github.com/ujin302/CodingTest_2023/tree/main/Java/workspace/vscode/Hellow/src/SWEA)
 - D3
 - S1
+
+# [Python](https://github.com/ujin302/CodingTest_2023/tree/main/Code)
+### [백준](https://github.com/ujin302/CodingTest_2023/tree/main/Code/BackJun)
+- Silver1
