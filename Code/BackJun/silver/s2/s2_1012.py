@@ -2,6 +2,7 @@ import sys;
 import queue;
 # sys.setrecursionlimit(10**5) # findEarthworm() 함수 사용 시, 필요
 
+# 재귀함수 활용 (DFS)
 def findEarthworm(startY, startX):
     checkArr[startY][startX] = True
     
@@ -20,8 +21,34 @@ def findEarthworm(startY, startX):
         
         if targetArr[moveY][moveX] == 1 and not checkArr[moveY][moveX]:
             findEarthworm(moveY, moveX)
-            
 
+# stack 활용 (DFS)
+def findEarthworm_ver2(startY, startX):
+    nearNode = []
+    checkArr[startY][startX] = True
+    nearNode.append([startY, startX])
+    
+    # 앞뒤위아래
+    moveXArr = [1, -1, 0, 0]
+    moveYArr = [0, 0, -1, 1]
+    
+    while len(nearNode) > 0:
+        node = nearNode.pop()
+        
+        for i in range(4):
+            moveX = node[1] + moveXArr[i]
+            moveY = node[0] + moveYArr[i]
+            
+            if moveX < 0 or moveY < 0:
+                continue
+            if moveX >= m or moveY >= n:
+                continue
+            
+            if targetArr[moveY][moveX] == 1 and not checkArr[moveY][moveX]:
+                checkArr[moveY][moveX] = True
+                nearNode.append([moveY, moveX])
+            
+# Queue 활용 (BFS)
 def useQueue(startY, startX):
     nearNode = queue.Queue()
     checkArr[startY][startX] = True
@@ -66,7 +93,8 @@ for i in range(tc):
     for y in range(n):
         for x in range(m):
             if targetArr[y][x] == 1 and not checkArr[y][x]:
+                findEarthworm_ver2(y, x)
                 # findEarthworm(y, x)
-                useQueue(y, x)
+                # useQueue(y, x)
                 result+=1
     print(result)
