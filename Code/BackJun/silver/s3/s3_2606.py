@@ -1,6 +1,6 @@
 import queue
 
-def checkVirus():
+def checkVirusBFS():
     result = 0
     networkQueue = queue.Queue()
     networkQueue.put(1)
@@ -16,7 +16,23 @@ def checkVirus():
     
     print(result)
 
-num = int(input()) # 컴퓨터 수
+def checkVirusDFS():
+    result = 0
+    networkStack = []
+    networkStack.append(1)
+    
+    while len(networkStack) > 0:
+        computer = networkStack.pop()
+        
+        for node in networkInfo[computer]:
+            if not networkCheck[node]:
+                result+=1
+                networkStack.append(node)
+                networkCheck[node] = True
+    
+    print(result)
+
+num = int(input())
 networkCount = int(input())
 
 networkInfo = [[] for _ in range(num+1)]
@@ -28,4 +44,5 @@ for i in range(networkCount):
     networkInfo[b].append(a)
 
 networkCheck[1] = True
-checkVirus()
+checkVirusDFS()
+checkVirusBFS()
